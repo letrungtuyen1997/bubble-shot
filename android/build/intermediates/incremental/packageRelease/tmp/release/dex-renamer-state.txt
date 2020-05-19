@@ -1,0 +1,7 @@
+#Mon May 04 10:37:53 ICT 2020
+base.0=/Users/dungle/Desktop/libgdx/PopCat/android/build/intermediates/transforms/dexMerger/release/0
+path.1=classes2.dex
+renamed.1=classes2.dex
+path.0=classes.dex
+renamed.0=classes.dex
+base.1=/Users/dungle/Desktop/libgdx/PopCat/android/build/intermediates/transforms/dexMerger/release/0

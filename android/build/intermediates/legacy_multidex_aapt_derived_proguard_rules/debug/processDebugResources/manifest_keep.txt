@@ -1,0 +1,2 @@
+# Referenced at /Users/dungle/Desktop/libgdx/bubble wood/android/build/intermediates/merged_manifests/debug/processDebugManifest/merged/AndroidManifest.xml:21
+-keep class android.support.multidex.MultiDexApplication { <init>(...); }

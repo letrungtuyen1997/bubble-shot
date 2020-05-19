@@ -1,0 +1,55 @@
+
+board.png
+size: 2048,1024
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+1
+  rotate: false
+  xy: 2, 2
+  size: 106, 106
+  orig: 106, 106
+  offset: 0, 0
+  index: -1
+2
+  rotate: false
+  xy: 1028, 814
+  size: 106, 106
+  orig: 106, 106
+  offset: 0, 0
+  index: -1
+3
+  rotate: false
+  xy: 110, 2
+  size: 106, 106
+  orig: 106, 106
+  offset: 0, 0
+  index: -1
+4
+  rotate: false
+  xy: 1028, 706
+  size: 106, 106
+  orig: 106, 106
+  offset: 0, 0
+  index: -1
+5
+  rotate: false
+  xy: 1136, 814
+  size: 106, 106
+  orig: 106, 106
+  offset: 0, 0
+  index: -1
+6
+  rotate: false
+  xy: 218, 2
+  size: 106, 106
+  orig: 106, 106
+  offset: 0, 0
+  index: -1
+bg
+  rotate: false
+  xy: 2, 110
+  size: 1024, 810
+  orig: 1024, 810
+  offset: 0, 0
+  index: -1
