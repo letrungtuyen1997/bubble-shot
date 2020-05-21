@@ -112,81 +112,12 @@ public class board {
         WhiteGr.addAction(
                 GSimpleAction.simpleAction((d,a)->{
                     if(ballMove!=null)
-                        Colision2();
+                        Colision();
                     return runtime;
                 })
         );
     }
-    private void Colision(){
-        for (int i=0;i<grid.arrGridBall.size;i++){
-            for(int j=0;j<grid.arrGridBall.get(i).size;j++){
-                if(grid.arrGridBall.get(i).get(j)!=null){
-                    if(checkColision(ballMove,grid.arrGridBall.get(i).get(j))==1){
-                        System.out.println("this ball: "+grid.arrGridBall.get(i).get(j).row+"--: "+grid.arrGridBall.get(i).get(j).col);
-                        if(checkleftright(ballMove.deg)==-1){
-                            int row = grid.arrGridBall.get(i).get(j).row-1;
-                            int col = grid.arrGridBall.get(i).get(j).col;
-                            boolean rowShift=true;
-                            if(grid.arrGridBall.get(i).get(j).rowShift){
-                                col = grid.arrGridBall.get(i).get(j).col+1;
-                                rowShift=false;
-                            }
-                            if(col<0)
-                                col=0;
-                            if(col>Config.quantityBall-1)
-                                col-=1;
-                            if(checkRowNull(row,col)==1){
-                                System.out.println("add in null");
-                                grid.addBallInNull(row,col,ballMove.id,grid.arrGridBall.get(i).get(j),rowShift);
-                            }
-                            else if(checkRowNull(row,col)==-1){
-                                if(checkRowNull(row,col-1)==1)
-                                    grid.addBallInNull(row,col-1,ballMove.id,grid.arrGridBall.get(i).get(j),rowShift);
-                                else
-                                    grid.addBallInNull(row-1,col-1,ballMove.id,grid.arrGridBall.get(i).get(j),rowShift);
-//                                grid.addBallInNull(row,col-1,ballMove.id,grid.arrGridBall.get(i).get(j),rowShift);
-                            }else
-                                grid.addNewRow(col,ballMove.id,grid.arrGridBall.get(i).get(j),rowShift);
-                            System.out.println("right: row["+row+"-"+col+"]");
-                        }else if (checkleftright(ballMove.deg)==1){
-                            int row = grid.arrGridBall.get(i).get(j).row-1;
-                            int col = grid.arrGridBall.get(i).get(j).col-1;
-                            boolean rowShift=true;
-                            if(grid.arrGridBall.get(i).get(j).rowShift){
-                                col = grid.arrGridBall.get(i).get(j).col;
-                                rowShift=false;
-                            }
-                            if(col<0)
-                                col=0;
-                            if(col>Config.quantityBall-1)
-                                col-=1;
-                            if(checkRowNull(row,col)==1){
-                                System.out.println("add in null");
-                                grid.addBallInNull(row,col,ballMove.id,grid.arrGridBall.get(i).get(j),rowShift);
-                            }else if(checkRowNull(row,col)==-1){
-                                if(checkRowNull(row,col+1)==1)
-                                    grid.addBallInNull(row,col+1,ballMove.id,grid.arrGridBall.get(i).get(j),rowShift);
-                                else
-                                    grid.addBallInNull(row+1,col+1,ballMove.id,grid.arrGridBall.get(i).get(j),rowShift);
-                            }
-                            else
-                                grid.addNewRow(col,ballMove.id,grid.arrGridBall.get(i).get(j),rowShift);
-                           // grid.addNewRow(grid.arrGridBall.get(i).get(j).col-1,ballMove.id,grid.arrGridBall.get(i).get(j));
-                            System.out.println("left: row["+row+"-"+col+"]");
-                        }
 
-//                        System.out.println("check: "+ballMove.deg);
-//                        System.out.println("Colision "+grid.arrGridBall.get(i).get(j).id);
-                        ballMove.destroy();
-                        runtime=true;
-                        return;
-                    }else {
-//                    System.out.println("");
-                    }
-                }
-            }
-        }
-    }
     private int  checkRowNull(int row, int col){
         System.out.println("ball check: "+row+"---: "+col);
         if (row<0)
@@ -197,51 +128,98 @@ public class board {
             return -1;
     }
 
-    private int checkleftright(float deg){
-        if(deg>90)
-            return -1;
-        else if(deg<90&&deg>0)
-            return 1;
-        else if(deg<0&&deg>(-90))
-            return -1;
-        else if(deg<-90&&deg>(-180))
-            return 1;
-        return 0;
-    }
-    //:todo fix in here
-    private void Colision2(){
+
+    //:todo fix loi trai tren, phai tren
+    private void Colision(){
         for(int i=0;i<grid.arrGridBall.size;i++)
             for (int j=0;j<grid.arrGridBall.get(i).size;j++){
                 if(grid.arrGridBall.get(i).get(j)!=null){
                     if(checkColision(ballMove,grid.arrGridBall.get(i).get(j))==1) {
                         System.out.println("this ball: " + grid.arrGridBall.get(i).get(j).row + "--: " + grid.arrGridBall.get(i).get(j).col);
-                        if(checkleftright2(ballMove,grid.arrGridBall.get(i).get(j))==1){
-                            System.out.println("trai tren");
-                        }else if(checkleftright2(ballMove,grid.arrGridBall.get(i).get(j))==-1){
-                            System.out.println("trai ngang");
-                        }else if(checkleftright2(ballMove,grid.arrGridBall.get(i).get(j))==2){
-                            System.out.println("phai tren");
-                        }else if(checkleftright2(ballMove,grid.arrGridBall.get(i).get(j))==-2){
-                            System.out.println("phai ngang");
+                        int row = grid.arrGridBall.get(i).get(j).row;
+                        int col = grid.arrGridBall.get(i).get(j).col;
+                        boolean rowShift=true;
+                        if(grid.arrGridBall.get(i).get(j).rowShift){
+                            //col = grid.arrGridBall.get(i).get(j).col-1;
+                            rowShift=false;
+                        }else {
+                           // col = grid.arrGridBall.get(i).get(j).col+1;
+                            rowShift=true;
                         }
 
+                        System.out.println("checkRowShift: "+rowShift);
+                        if(checkleftright(ballMove,grid.arrGridBall.get(i).get(j))==1){
+                            if(rowShift)
+                                col-=1;
+                            if(col<0)
+                                return;
+                            if(col>Config.quantityBall-1)
+                                return;
+                            if(checkRowNull(row-1,col)==1){
+                                grid.addBallLeftRight(row-1,col,ballMove.id,grid.arrGridBall.get(i).get(j),rowShift);
+                            }else {
+                                grid.addNewRow(col,ballMove.id,grid.arrGridBall.get(i).get(j),rowShift);
+                            }
+                            System.out.println("trai tren");
+                        }else if(checkleftright(ballMove,grid.arrGridBall.get(i).get(j))==-1){
+                            col-=1;
+                            if(col<0)
+                                return;
+                            if(col>Config.quantityBall-1)
+                                return;
+                            System.out.println("ball check: "+row+"---: "+(col));
+                            if(checkRowNull(row,col)==1) {
+                                grid.addBallHorizontal(row, col, ballMove.id, grid.arrGridBall.get(i).get(j), grid.arrGridBall.get(i).get(j).rowShift);
+                            }
+                            System.out.println("trai ngang");
+                        }else if(checkleftright(ballMove,grid.arrGridBall.get(i).get(j))==2){
+                            if(rowShift==false)
+                                col+=1;
+                            if(col<0)
+                                return;
+                            if(col>Config.quantityBall-1)
+                                return;
+                            if(checkRowNull(row-1,col)==1){
+                                grid.addBallLeftRight(row-1,col,ballMove.id,grid.arrGridBall.get(i).get(j),rowShift);
+                            }else {
+                                System.out.println("kkkkkkkkkkkkkkkkkk");
+                                grid.addNewRow(col,ballMove.id,grid.arrGridBall.get(i).get(j),rowShift);
+                            }
+                            System.out.println("phai tren");
+                        }else if(checkleftright(ballMove,grid.arrGridBall.get(i).get(j))==-2){
+                            col+=1;
+                            if(col<0)
+                                return;
+                            if(col>Config.quantityBall-1)
+                                return;
+                            System.out.println("ball check: "+row+"---: "+(col));
+                            System.out.println("phai ngang");
+                            if(checkRowNull(row,col)==1){
+                                grid.addBallHorizontal(row,col,ballMove.id,grid.arrGridBall.get(i).get(j),grid.arrGridBall.get(i).get(j).rowShift);
+                            }
+                        }
+                        ballMove.destroy();
+                        runtime=true;
+                        return;
                     }
                 }
             }
 
     }
-    private int checkleftright2(ball ball1, BallGrid ball2){
-        float x1 = ball1.gr.getX()+Config.BALL_W/2;
-        float y1 = ball1.gr.getY()+Config.BALL_H/2;
+    private int checkleftright(ball ball1, BallGrid ball2){
+        float x1 = ball1.gr.getX()+Config.BALL_W/2-Config.SpeedX;
+        float y1 = ball1.gr.getY()+Config.BALL_H/2+Config.SpeedY;
         float x2 = ball2.gr.getX()+Config.BALL_W/2;
         float y2 = ball2.gr.getY()+Config.BALL_H/2;
-        if(x1<x2 && (y1-y2)>Config.BALL_RADIUS)
+//        System.out.println("check pos: "+"[x1: "+x1+"-y1: "+y1+"]"+"[x2: "+x2+"-y2: "+y2+"]" );
+//        System.out.println("offsetXy: "+ball.speedX+"---- "+ball.speedY);
+        if(x1<x2 && (y1-y2)>0)
             return 1;
-        if(x1<x2 && (y1-y2)<Config.BALL_RADIUS)
+        if(x1<x2 && (y1-y2)<0)
             return -1;
-        if(x1>x2 && (y1-y2)>Config.BALL_RADIUS)
+        if(x1>x2 && (y1-y2)>0)
             return 2;
-        if(x1>x2 && (y1-y2)<Config.BALL_RADIUS)
+        if(x1>x2 && (y1-y2)<0)
             return -2;
         return 0;
     }
@@ -251,11 +229,7 @@ public class board {
             return 1;
       return -1;
     }
-    private float Distance(ball ball1, BallGrid ball2){
-        return (float)Math.sqrt(
-                Math.pow(ball1.x+Config.BALL_RADIUS-ball2.x-Config.BALL_RADIUS,2)+ Math.pow(ball1.y+Config.BALL_RADIUS-ball2.y-Config.BALL_RADIUS,2)
-        );
-    }
+
 
 
 

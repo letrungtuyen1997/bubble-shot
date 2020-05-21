@@ -1,8 +1,10 @@
 package com.ss.gameLogic.objects;
 
+import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.utils.Array;
+import com.ss.commons.Tweens;
 import com.ss.core.action.exAction.GSimpleAction;
 import com.ss.core.exSprite.GShapeSprite;
 import com.ss.core.util.GLayer;
@@ -18,10 +20,14 @@ public class Grid {
     public Array<Array<BallGrid>> arrGridBall = new Array<>();
     public Array<BallGrid> arrBallSame = new Array<>();
     public Array<BallGrid> arrDropBall = new Array<>();
+    public Array<BallGrid> arrDropBall2 = new Array<>();
+    public Array<BallGrid> arrDropFinal = new Array<>();
     private boolean ismoveGrid=false;
     private int countRowTop=0;
-    private int countRowNull=0;
     private int center=0;
+    private int exploxe=0;
+
+
     Grid(){
         GStage.addToLayer(GLayer.ui,grGrid);
         createLine();
@@ -58,7 +64,7 @@ public class Grid {
     }
     private void createLine(){
 
-        LineGrid.createLine(0,Config.BALL_RADIUS, GStage.getWidth(),Config.BALL_RADIUS);
+        LineGrid.createLine(0,0, GStage.getWidth(),0);
         LineGrid.setColor(1,0,1,1f);
         grGrid.addActor(LineGrid);
     }
@@ -66,14 +72,14 @@ public class Grid {
         grGrid.addAction(
                 GSimpleAction.simpleAction((d,a)->{
                     center++;
-                    if(center>=300){
+                    if(center>=120){
                         Config.GridMove=0.1f;
                     }else
                         Config.GridMove=2f;
                     setPosBallGrid(Config.GridMove);
                     if(havetoCreateNewRow()){
                         createNewRow();
-                        System.out.println("create");
+//                        System.out.println("create");
 
                     }
                     if(checkGameOver()){
@@ -118,13 +124,12 @@ public class Grid {
         }
         Array<BallGrid> NewrowBalls = new Array<>();
         for(int j=0;j<quantity;j++){
-            //if(j!=0&&j!=quantity){
+//            if(j!=0&&j!=quantity){
                 int type = (int)(Math.random()*5)+1;
-                BallGrid ballGrid = new BallGrid(type,row,j,grGrid,this,paddingX,quantity,0,rowShift);
+                BallGrid ballGrid = new BallGrid(type,row,j,grGrid,this,paddingX,quantity,-Config.BALL_RADIUS,rowShift);
                 NewrowBalls.add(ballGrid);
-           // }else
+//            }else
 //                NewrowBalls.add(null);
-
         }
         arrGridBall.add(NewrowBalls);
 //        setPosBallGrid(0.5f);
@@ -136,13 +141,13 @@ public class Grid {
     }
     public void checkAllBall(BallGrid ball){
         arrBallSame.clear();
-        System.out.println("Ball: [row: "+ball.row+"  col: "+ball.col);
+//        System.out.println("Ball: [row: "+ball.row+"  col: "+ball.col);
         BallAround(arrGridBall,ball,ball.row,ball.col);
-        System.out.println("check: "+arrBallSame.size);
+//        System.out.println("check: "+arrBallSame.size);
         if(arrBallSame.size>1){
 //            System.out.println("set");
             for (BallGrid p: arrBallSame){
-                System.out.println("Ball: [row: "+p.row+"  col: "+p.col);
+//                System.out.println("Ball: [row: "+p.row+"  col: "+p.col);
                 arrGridBall.get(p.row).set(p.col,null);
 //                setArrGridBall(p);
                 p.destroy();
@@ -174,19 +179,10 @@ public class Grid {
         if(ball.compare(input.get(row).get(col))){
             arrBallSame.add(input.get(row).get(col));
             int even=0,odd=0;
-//            if(row%2!=0){
-//                even=1;
-//            }else {
-//                odd=1;
-//            }
             if(arrGridBall.get(row).get(col).rowShift){
-//                even=1;
                 odd=1;
             }else {
-//                even=1;
                 even=1;
-
-//                odd=1;
             }
             BallAround(input,ball,row-1,col-even);
             BallAround(input,ball,row-1,col+odd);
@@ -209,7 +205,7 @@ public class Grid {
         float paddingX = 0;
         float paddingY = ball.y+Config.BALL_RADIUS+Config.ROW_HEGHT;
         float LineYUp=0;
-        System.out.println("checkkkkkkkkkkk: "+rowShift);
+//        System.out.println("checkkkkkkkkkkk: "+rowShift);
         if(rowShift)
             paddingX=Config.BALL_W/2;
         Array<BallGrid> NewrowBalls = new Array<>();
@@ -234,9 +230,9 @@ public class Grid {
         BallAround(arrGridBall,ballGrid,ballGrid.row,ballGrid.col);
         detroyBall(ballGrid);
         updateLineGrid(LineYUp);
-        System.out.println("size max: "+arrGridBall.size);
+//        System.out.println("size max: "+arrGridBall.size);
     }
-    public void addBallInNull(int row,int col,int type,BallGrid ball, boolean rowShift){
+    public void addBallLeftRight(int row,int col,int type,BallGrid ball, boolean rowShift){
         arrBallSame.clear();
         if(col<=0)
             col=0;
@@ -254,33 +250,147 @@ public class Grid {
 
 
     }
-    private void detroyBall(BallGrid ballGrid){
-        if(arrBallSame.size>2){
-           // arrGridBall.get(ballGrid.row).set(ballGrid.col,null);
-//            System.out.println("Ball: [row: "+ball.row+"  col: "+ball.col);
-          //  ballGrid.destroy();
-            for (BallGrid p :arrBallSame){
-                System.out.println("Ball: [row: "+p.row+"  col: "+p.col);
-                arrGridBall.get(p.row).set(p.col,null);
-                p.destroy();
-            }
+    public void addBallHorizontal(int row,int col,int type,BallGrid ball, boolean rowShift){
+        arrBallSame.clear();
+        if(col<=0)
+            col=0;
+        else if(col>=quantity){
+            col-=1;
         }
+        float paddingX = 0;
+        float paddingY = ball.y+Config.BALL_RADIUS;
+        if(rowShift)
+            paddingX=Config.BALL_W/2;
+        BallGrid ballGrid = new BallGrid(type,row,col,grGrid,this,paddingX,quantity,paddingY,rowShift);
+        arrGridBall.get(row).set(col,ballGrid);
+        BallAround(arrGridBall,ballGrid,ballGrid.row,ballGrid.col);
+        detroyBall(ballGrid);
+
 
     }
-    private void checkRowNull(){
+    private void detroyBall(BallGrid ballGrid){
+        exploxe=0;
+        if(arrBallSame.size>2){
+            for (BallGrid p :arrBallSame){
+//                System.out.println("Ball: [row: "+p.row+"  col: "+p.col);
+                Tweens.setTimeout(grGrid,Config.dradestroyball*arrBallSame.indexOf(p,true),()->{
+                    exploxe++;
+                    arrGridBall.get(p.row).set(p.col,null);
+                    p.destroy();
+                });
+            }
+            grGrid.addAction(GSimpleAction.simpleAction((d,a)->{
+                if(exploxe==arrBallSame.size){
+                    findFloatingClusters();
+                    setArrDropBall2();
+//            Culusters(arrDropBall);
+//            Culusters(arrDropBall2);
+//            effectBallDrop(arrDropBall);
+                    effectBallDrop(arrDropBall2);
+//                    System.out.println("size ball drop: "+arrDropBall.size);
+//                    System.out.println("size ball drop2: "+arrDropBall2.size);
+//            for (BallGrid p : arrDropBall)
+//                System.out.println("ballDrop: "+p.row+"    "+p.col);
+                    return true;
+                }
+                return false;
+            }));
+
+
+        }
+        SetarrGridBall();
+    }
+    public void findClusters(Array<Array<BallGrid>> input, BallGrid ball,int row, int col){
+        if (row < 0 || row >= input.size || col < 0 || col >= input.get(row).size)
+            return;
+        if(input==null)
+            return;
+        if (input.get(row).get(col)==null)
+            return;
+        for (BallGrid p: arrDropBall){
+            if(p.row==row && p.col==col)
+                return;
+        }
+        //if(ball.compare(input.get(row).get(col))){
+            arrDropBall.add(input.get(row).get(col));
+            int even=0,odd=0;
+            if(arrGridBall.get(row).get(col).rowShift){
+                odd=1;
+            }else {
+                even=1;
+            }
+            findClusters(input,ball,row-1,col-even);
+            findClusters(input,ball,row-1,col+odd);
+            findClusters(input,ball,row,col-1);
+            findClusters(input,ball,row,col+1);
+            findClusters(input,ball,row+1,col-even);
+            findClusters(input,ball,row+1,col+odd);
+
+       // }
+    }
+    private void findFloatingClusters(){
+        arrDropBall.clear();
+        for (int i=arrGridBall.size-1;i>=0;i--){
+            for (int j=0;j<arrGridBall.get(i).size;j++){
+                if(arrGridBall.get(i).get(j)!=null){
+//                    System.out.println("here");
+                    findClusters(arrGridBall,arrGridBall.get(i).get(j),arrGridBall.get(i).get(j).row,arrGridBall.get(i).get(j).col);
+                    return;
+                }
+            }
+        }
+    }
+    private void setArrDropBall2(){
+        arrDropBall2.clear();
         for (int i=0;i<arrGridBall.size;i++){
+            for (int j=0;j<arrGridBall.get(i).size;j++){
+                int count=0;
+                if(arrGridBall.get(i).get(j)!=null){
+                    for (BallGrid p: arrDropBall){
+                        if(arrGridBall.get(i).get(j).row==p.row && arrGridBall.get(i).get(j).col==p.col)
+                            count++;
+                    }
+                    if(count==0){
+                        arrDropBall2.add(arrGridBall.get(i).get(j));
+                    }
+                }
+
+            }
+        }
+    }
+    private void SetarrGridBall(){
+        for(int i=0;i<arrGridBall.size;i++){
             int count=0;
             for (int j=0;j<arrGridBall.get(i).size;j++){
-                if(arrGridBall.get(i).get(j)==null)
+                if(arrGridBall.get(i).get(j)==null){
                     count++;
+                }
             }
-            if(count==arrGridBall.get(i).size){
-                countRowNull++;
+//            System.out.println("check here!!!!!!!!!: "+count);
+//            System.out.println("check here!!!!!!!!!2: "+arrGridBall.get(i).size);
+            if(count==Config.quantityBall){
+                for (int i1=0;i1<arrGridBall.size;i1++){
+                    for (int j1=0;j1<arrGridBall.get(i).size;j1++){
+                        if(arrGridBall.get(i1).get(j1)!=null){
+                            if( arrGridBall.get(i1).get(j1).row>0)
+                                arrGridBall.get(i1).get(j1).row-=1;
+                        }
+//                System.out.println("log: "+i+": "+arrGridBall.get(i).get(j));
+                    }
+                }
                 arrGridBall.removeIndex(i);
+                updateLineGrid(-Config.ROW_HEGHT);
             }
         }
-
     }
+    private void effectBallDrop(Array<BallGrid> arr){
+        for (BallGrid p : arr)
+        {
+            arrGridBall.get(p.row).set(p.col,null);
+            p.moveBall(Config.Speed_Drop);
+        }
+    }
+
 
 
 }

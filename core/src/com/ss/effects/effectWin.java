@@ -15,7 +15,7 @@ import com.ss.commons.TextureAtlasC;
 import com.ss.core.util.GAssetsManager;
 
 public class effectWin extends Actor{
-    private static FileHandle Destroy = Gdx.files.internal("effects/Destroy2");
+    private static FileHandle Destroy = Gdx.files.internal("effects/destroy");
     private static FileHandle Bomb = Gdx.files.internal("effects/bomb");
     private static FileHandle rocket = Gdx.files.internal("effects/rocket");
     private static FileHandle light = Gdx.files.internal("effects/light");
@@ -33,12 +33,14 @@ public class effectWin extends Actor{
             if(id==1){
                 TextureAtlas atlas = new TextureAtlas();
                 TextureRegion texture;
-                texture= new TextureRegion(GMain.assetManager.get("effects/Chosse"+id2+".png",Texture.class));
-
-                atlas.addRegion("party", texture);
+//                texture= new TextureRegion(GMain.assetManager.get("effects/C"+id2+".png",Texture.class));
+//                texture = TextureAtlasC.effectAtlas.
+//                System.out.println("check effect: "+texture);
+//                atlas.addRegion("ef1", texture);
 //                this.effect.load(Destroy, Gdx.files.internal("particle"));
-                this.effect.load(Destroy, atlas);
-                this.effect.scaleEffect(0.7f);
+                this.effect.load(Destroy, TextureAtlasC.effectAtlas);
+                this.effect.getEmitters().get(0).getSprites().swap(0,(id2-1));
+                this.effect.scaleEffect(1.5f);
                 for (int i = 0; i < this.effect.getEmitters().size; i++) {
                     ((ParticleEmitter) this.effect.getEmitters().get(i)).flipY();
                     ((ParticleEmitter) this.effect.getEmitters().get(i)).setFlip(true,false);

@@ -10,11 +10,13 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import com.ss.commons.TextureAtlasC;
+import com.ss.commons.Tweens;
 import com.ss.core.action.exAction.GSimpleAction;
 import com.ss.core.exSprite.GShapeSprite;
 import com.ss.core.util.GLayer;
 import com.ss.core.util.GStage;
 import com.ss.core.util.GUI;
+import com.ss.effects.effectWin;
 import com.ss.gameLogic.config.Config;
 
 public class ball {
@@ -36,12 +38,12 @@ public class ball {
         ball = GUI.createImage(TextureAtlasC.Boardgame,""+id);
         ball.setPosition(ball.getWidth()/2,ball.getHeight()/2,Align.center);
         gr.addActor(ball);
-        body = new Circle(gr.getX()+ball.getWidth()/4,gr.getY()+ball.getHeight()/4,Config.BALL_RADIUS-15);
+        body = new Circle(gr.getX()+ball.getWidth()/4,gr.getY()+ball.getHeight()/4,Config.BALL_RADIUS-10);
 //        body.setPosition(gr.getX(),gr.getY()+ball.getHeight()/2);
-        blackOverlay.createCircle(true,body.x,body.y,Config.BALL_RADIUS-15);
+        blackOverlay.createCircle(true,body.x,body.y,Config.BALL_RADIUS-10);
         blackOverlay.setColor(1,0,1,0.8f);
         blackOverlay.setPosition(body.x,body.y);
-        gr.addActor(blackOverlay);
+//        gr.addActor(blackOverlay);
         gr.setSize(ball.getWidth(),ball.getHeight());
         gr.setOrigin(Align.center);
         gr.setPosition(x,y,Align.center);
@@ -61,7 +63,13 @@ public class ball {
                 gr.clear();
                 gr.remove();
             }
-            gr.setPosition(gr.getX()+speedX,gr.getY()-speedY);
+//            System.out.println("speedX: "+speedX);
+//            System.out.println("speedY: "+speedY);
+            Config.SpeedX=speedX;
+            Config.SpeedY=speedY;
+            gr.setX(gr.getX()+speedX);
+            gr.setY(gr.getY()-speedY);
+//            gr.setPosition(gr.getX()+speedX,gr.getY()-speedY);
             x=gr.getX();
             y=gr.getY();
             body.setX(gr.getX());
@@ -70,8 +78,16 @@ public class ball {
         }));
     }
     public void destroy(){
-        gr.clear();
-        gr.remove();
+        ball.clear();
+        ball.remove();
+        effectWin ef = new effectWin(1,id,Config.BALL_RADIUS,Config.BALL_RADIUS);
+        gr.addActor(ef);
+        ef.start();
+        Tweens.setTimeout(gr,1f,()->{
+            gr.clear();
+            gr.remove();
+        });
+
     }
     public boolean compare(BallGrid p) {
         return (this.id == p.id);
