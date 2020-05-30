@@ -45,7 +45,7 @@ public class ToggleBtn {
     shapeOn.addListener(new ClickListener(){
       @Override
       public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-        SoundEffect.Play(SoundEffect.click);
+//        SoundEffect.Play(SoundEffect.click);
         setValue(false);
         if(id == 1){
           SoundEffect.music = false;
@@ -61,7 +61,7 @@ public class ToggleBtn {
     shapeOff.addListener(new ClickListener(){
       @Override
       public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-        SoundEffect.Play(SoundEffect.click);
+//        SoundEffect.Play(SoundEffect.click);
         setValue(true);
 
         if(id == 1){

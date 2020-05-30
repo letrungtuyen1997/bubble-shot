@@ -1,0 +1,62 @@
+
+gameOver.png
+size: 1024,2048
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+bgGameOver
+  rotate: false
+  xy: 2, 724
+  size: 720, 1280
+  orig: 720, 1280
+  offset: 0, 0
+  index: -1
+btnRed
+  rotate: false
+  xy: 724, 1906
+  size: 255, 98
+  orig: 255, 98
+  offset: 0, 0
+  index: -1
+frmOver
+  rotate: false
+  xy: 2, 172
+  size: 550, 550
+  orig: 550, 550
+  offset: 0, 0
+  index: -1
+frmTitle
+  rotate: false
+  xy: 2, 117
+  size: 670, 53
+  orig: 670, 53
+  offset: 0, 0
+  index: -1
+icon1
+  rotate: false
+  xy: 554, 663
+  size: 60, 59
+  orig: 60, 59
+  offset: 0, 0
+  index: -1
+icon2
+  rotate: false
+  xy: 2, 2
+  size: 50, 52
+  orig: 50, 52
+  offset: 0, 0
+  index: -1
+icon3
+  rotate: false
+  xy: 724, 1842
+  size: 50, 62
+  orig: 50, 62
+  offset: 0, 0
+  index: -1
+icon4
+  rotate: false
+  xy: 2, 56
+  size: 75, 59
+  orig: 75, 59
+  offset: 0, 0
+  index: -1

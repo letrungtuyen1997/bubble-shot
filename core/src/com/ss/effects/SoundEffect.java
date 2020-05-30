@@ -14,28 +14,46 @@ public class SoundEffect {
   public static boolean music = false;
   public static boolean mute = false;
 
-  public static int click = 0;
-  public static int Fall = 1;
-  public static int complete = 2;
-  public static int Good = 3;
-  public static int Great = 4;
-  public static int Lose = 5;
-  public static int Bomb = 6;
-  public static int Rocket = 7;
-  public static int ChangeColor = 8;
-  public static int Result = 9;
-  public static int Tick = 10;
-  public static int Unlock = 11;
+  public static int shot = 0;
+  public static int colision = 1;
+  public static int corect= 2;
+  public static int snap = 3;
+  public static int lose = 4;
+  public static int vutmat = 5;
+  public static int drop1 = 6;
+  public static int drop2 = 7;
+  public static int wow = 8;
+  public static int crazy = 9;
+  public static int fabulous= 10;
+  public static int fireball = 11;
+  public static int fireFly = 12;
+  public static int go = 13;
+  public static int ready = 14;
+  public static int timeDown = 15;
   private static Sound[] explode;
 
 
   public static void initSound() {
-//    explode = new Sound[14];
-//    for (int i = 0; i < 14; i++)
-//      explode[i] = GAssetsManager.getSound("eli" + (i + 1) + ".mp3");
-//    commons = new Sound[MAX_COMMON];
-//    commons[click] = GAssetsManager.getSound("click.mp3");
-//    commons[Fall] = GAssetsManager.getSound("EffectFall.mp3");
+    explode = new Sound[14];
+    for (int i = 0; i < 10; i++)
+      explode[i] = GAssetsManager.getSound("e" + (i + 1) + ".mp3");
+    commons = new Sound[MAX_COMMON];
+    commons[shot] = GAssetsManager.getSound("shot.mp3");
+    commons[colision] = GAssetsManager.getSound("colision.mp3");
+    commons[corect] = GAssetsManager.getSound("corect.mp3");
+    commons[snap] = GAssetsManager.getSound("snap.mp3");
+    commons[lose] = GAssetsManager.getSound("lose.mp3");
+    commons[vutmat] = GAssetsManager.getSound("vutmat.mp3");
+    commons[drop1] = GAssetsManager.getSound("ballDrop1.mp3");
+    commons[drop2] = GAssetsManager.getSound("ballDrop2.mp3");
+    commons[wow] = GAssetsManager.getSound("wow.mp3");
+    commons[crazy] = GAssetsManager.getSound("crazy.mp3");
+    commons[fabulous] = GAssetsManager.getSound("fabulous.mp3");
+    commons[fireball] = GAssetsManager.getSound("fireball.mp3");
+    commons[fireFly] = GAssetsManager.getSound("fireFly.mp3");
+    commons[go] = GAssetsManager.getSound("go.mp3");
+    commons[ready] = GAssetsManager.getSound("ready.mp3");
+    commons[timeDown] = GAssetsManager.getSound("timeDown.mp3");
 //    commons[complete] = GAssetsManager.getSound("stageclear.mp3");
 //    commons[Good] = GAssetsManager.getSound("Good.mp3");
 //    commons[Great] = GAssetsManager.getSound("Great.mp3");
@@ -59,7 +77,7 @@ public class SoundEffect {
     long id = -1;
     if (!mute) {
       id = commons[i].play();
-      commons[i].setVolume(id,0.5f);
+      commons[0].setVolume(id,2f);
     }
     return id;
   }

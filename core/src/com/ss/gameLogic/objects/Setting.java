@@ -108,7 +108,7 @@ public class Setting implements ToggleHandler {
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
                 super.touchUp(event, x, y, pointer, button);
-                SoundEffect.Play(SoundEffect.click);
+//                SoundEffect.Play(SoundEffect.click);
 
 //                gameScene.setScreen(new StartScene());
             }

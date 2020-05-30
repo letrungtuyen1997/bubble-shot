@@ -6,94 +6,51 @@ import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
+import com.badlogic.gdx.graphics.g2d.ParticleEffectPool;
 import com.badlogic.gdx.graphics.g2d.ParticleEmitter;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Group;
+import com.badlogic.gdx.utils.Array;
 import com.ss.GMain;
 import com.ss.commons.TextureAtlasC;
 import com.ss.core.util.GAssetsManager;
 
 public class effectWin extends Actor{
-    private static FileHandle Destroy = Gdx.files.internal("effects/destroy");
-    private static FileHandle Bomb = Gdx.files.internal("effects/bomb");
-    private static FileHandle rocket = Gdx.files.internal("effects/rocket");
-    private static FileHandle light = Gdx.files.internal("effects/light");
-    private static FileHandle unlock = Gdx.files.internal("effects/unlock");
-    private static FileHandle lightPop = Gdx.files.internal("effects/lightPop");
-    private static FileHandle lightBomb = Gdx.files.internal("effects/lightBomb");
 
+    FileHandle Destroy = Gdx.files.internal("effects/destroy");
     public ParticleEffect effect;
+    public ParticleEffectPool effectPool;
+    public ParticleEffectPool.PooledEffect pooledEffect;
     private Actor parent = this.parent;
+    private Group group;
+    private Array<Sprite> arrSprite= new Array<>();
+    public boolean isAlive = false;
 
-    public effectWin(int id,int id2, float f, float f2) {
+    public effectWin(int id, float f, float f2, Group group) {
+        this.group = group;
         this.effect = new ParticleEffect();
+        this.effectPool = new ParticleEffectPool(effect,0,100);
+        this.pooledEffect = effectPool.obtain();
         setX(f);
         setY(f2);
             if(id==1){
-                TextureAtlas atlas = new TextureAtlas();
-                TextureRegion texture;
-//                texture= new TextureRegion(GMain.assetManager.get("effects/C"+id2+".png",Texture.class));
-//                texture = TextureAtlasC.effectAtlas.
-//                System.out.println("check effect: "+texture);
-//                atlas.addRegion("ef1", texture);
-//                this.effect.load(Destroy, Gdx.files.internal("particle"));
+
                 this.effect.load(Destroy, TextureAtlasC.effectAtlas);
-                this.effect.getEmitters().get(0).getSprites().swap(0,(id2-1));
-                this.effect.scaleEffect(1.5f);
                 for (int i = 0; i < this.effect.getEmitters().size; i++) {
                     ((ParticleEmitter) this.effect.getEmitters().get(i)).flipY();
                     ((ParticleEmitter) this.effect.getEmitters().get(i)).setFlip(true,false);
                 }
-            }else if(id==2){
-                this.effect.load(Bomb, Gdx.files.internal("effects"));
-//                this.effect.load(Destroy, atlas);
-                this.effect.scaleEffect(1f);
-                for (int i = 0; i < this.effect.getEmitters().size; i++) {
-                    ((ParticleEmitter) this.effect.getEmitters().get(i)).flipY();
-//                    ((ParticleEmitter) this.effect.getEmitters().get(i)).setFlip(true,false);
-                }
-            }else if(id==3){
-                this.effect.load(rocket, Gdx.files.internal("effects"));
-//                this.effect.load(Destroy, atlas);
-                this.effect.scaleEffect(1f);
-                for (int i = 0; i < this.effect.getEmitters().size; i++) {
-                    ((ParticleEmitter) this.effect.getEmitters().get(i)).flipY();
-//                    ((ParticleEmitter) this.effect.getEmitters().get(i)).setFlip(true,false);
-                }
-            }else if(id==4){
-                this.effect.load(light, Gdx.files.internal("effects"));
-//                this.effect.load(Destroy, atlas);
-                this.effect.scaleEffect(1f);
-                for (int i = 0; i < this.effect.getEmitters().size; i++) {
-                    ((ParticleEmitter) this.effect.getEmitters().get(i)).flipY();
-//                    ((ParticleEmitter) this.effect.getEmitters().get(i)).setFlip(true,false);
-                }
-            }else if(id==5){
-                this.effect.load(unlock, Gdx.files.internal("effects"));
-//                this.effect.load(Destroy, atlas);
-                this.effect.scaleEffect(4f);
-                for (int i = 0; i < this.effect.getEmitters().size; i++) {
-                    ((ParticleEmitter) this.effect.getEmitters().get(i)).flipY();
-//                    ((ParticleEmitter) this.effect.getEmitters().get(i)).setFlip(true,false);
-                }
-            }else if(id==6){
-                this.effect.load(lightBomb, Gdx.files.internal("effects"));
-//                this.effect.load(Destroy, atlas);
-                this.effect.scaleEffect(1f);
-                for (int i = 0; i < this.effect.getEmitters().size; i++) {
-                    ((ParticleEmitter) this.effect.getEmitters().get(i)).flipY();
-//                    ((ParticleEmitter) this.effect.getEmitters().get(i)).setFlip(true,false);
-                }
-            }
-            else if(id==7){
-                this.effect.load(lightPop, Gdx.files.internal("effects"));
-//                this.effect.load(Destroy, atlas);
-                this.effect.scaleEffect(0.8f);
-                for (int i = 0; i < this.effect.getEmitters().size; i++) {
-                    ((ParticleEmitter) this.effect.getEmitters().get(i)).flipY();
-//                    ((ParticleEmitter) this.effect.getEmitters().get(i)).setFlip(true,false);
-                }
+                arrSprite.addAll(this.effect.getEmitters().get(0).getSprites());
+//                System.out.println("check2: "+this.effect.getEmitters().get(0).getSprites().size);
+//                System.out.println("check3: "+arrSprite.size);
+
+
+//                this.effect.getEmitters().get(0).getSprites().swap(0,(id2-1));
+                this.effect.scaleEffect(1.5f);
+
             }
 
 
@@ -101,23 +58,72 @@ public class effectWin extends Actor{
 
 
     }
+    public void resetSprites(){
+       // for (int i = 0; i < this.effect.getEmitters().size; i++) {
+            this.effect.getEmitters().get(0).getSprites().clear();
+            this.effect.getEmitters().get(0).getSprites().addAll(arrSprite);
 
-    public void act(float f) {
-        super.act(f);
-        this.effect.setPosition(getX(), getY());
-        this.effect.update(f);
+       // }
+    }
+    public void changeSprites(int id){
+        resetSprites();
+//        this.effect.getEmitters().get(0).getSprites().swap(0,(id-1));
+//        System.out.println("check: "+this.effect.getEmitters().get(0).getSprites().size);
+        if(this.effect.getEmitters().get(0).getSprites()!=null)
+            this.effect.getEmitters().get(0).getSprites().swap(0,(id-1));
+
+    }
+    public void SetPosition(float x,float y){
+        this.effect.setPosition(x,y);
     }
 
-    public void draw(Batch batch, float f) {
-        super.draw(batch, f);
+    @Override
+    public boolean remove() {
+        if(pooledEffect!=null)
+            pooledEffect.free();
+        return super.remove();
+    }
+
+    @Override
+    public void act(float delta) {
+        super.act(delta);
+        this.effect.setPosition(getX(), getY());
+        this.effect.update(delta);
+        if(this.effect.isComplete()){
+            remove();
+            isAlive=false;
+        }
+    }
+
+//    public void act(float f) {
+//        super.act(f);
+//        this.effect.setPosition(getX(), getY());
+//        this.effect.update(f);
+//        if(this.effect.isComplete()){
+//            remove();
+//        }
+//    }
+
+    @Override
+    public void draw(Batch batch, float parentAlpha) {
+        super.draw(batch, parentAlpha);
         if (!this.effect.isComplete()) {
             this.effect.draw(batch);
             return;
         }
         this.effect.dispose();
-
-
     }
+
+//    public void draw(Batch batch, float f) {
+//        super.draw(batch, f);
+//        if (!this.effect.isComplete()) {
+//            this.effect.draw(batch);
+//            return;
+//        }
+//        this.effect.dispose();
+//
+//
+//    }
 
     public void setScale(float ratio){
         this.effect.scaleEffect(ratio);
@@ -128,6 +134,8 @@ public class effectWin extends Actor{
     }
 
     public void start() {
+        isAlive =true;
+        this.group.addActor(this);
         this.effect.start();
     }
 }

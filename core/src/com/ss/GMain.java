@@ -21,6 +21,7 @@ import com.ss.core.util.GStage;
 import com.ss.core.util.GStage.StageBorder;
 import com.ss.effects.SoundEffect;
 import com.ss.gameLogic.config.C;
+import com.ss.scenes.GameOverScene;
 import com.ss.scenes.GameScene;
 
 public class GMain extends GDirectedGame {
@@ -93,7 +94,7 @@ public class GMain extends GDirectedGame {
   
   private static GScreen menuScreen()
   {
-    return new GameScene();
+    return new GameOverScene();
   }
 
   public void create()

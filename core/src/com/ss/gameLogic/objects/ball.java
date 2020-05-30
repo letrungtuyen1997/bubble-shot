@@ -5,6 +5,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -16,6 +17,7 @@ import com.ss.core.exSprite.GShapeSprite;
 import com.ss.core.util.GLayer;
 import com.ss.core.util.GStage;
 import com.ss.core.util.GUI;
+import com.ss.effects.SoundEffect;
 import com.ss.effects.effectWin;
 import com.ss.gameLogic.config.Config;
 
@@ -28,14 +30,18 @@ public class ball {
     public Circle body;
     public int id;
     public float deg=0;
+    private board board;
     final GShapeSprite blackOverlay = new GShapeSprite();
+    private boolean shark=false;
 
-    ball(float x,float y, int  id){
+    ball(float x,float y, int  id,board board){
         this.x=x;
         this.y=y;
         this.id = id;
+        this.board = board;
         GStage.addToLayer(GLayer.ui,gr);
         ball = GUI.createImage(TextureAtlasC.Boardgame,""+id);
+        ball.setOrigin(Align.center);
         ball.setPosition(ball.getWidth()/2,ball.getHeight()/2,Align.center);
         gr.addActor(ball);
         body = new Circle(gr.getX()+ball.getWidth()/4,gr.getY()+ball.getHeight()/4,Config.BALL_RADIUS-10);
@@ -48,6 +54,10 @@ public class ball {
         gr.setOrigin(Align.center);
         gr.setPosition(x,y,Align.center);
         gr.debug();
+        if(id==Config.FireBall)
+            fireball();
+        if(id==Config.ChangeColor)
+            aniRotate(ball);
     }
     public void moveBall(){
         gr.addAction(GSimpleAction.simpleAction((d,a)->{
@@ -59,9 +69,18 @@ public class ball {
                 speedY=-speedY;
                 speedX=(float)Math.PI-speedX;
             }
-            if(gr.getY()+gr.getHeight()<0){
+            if(gr.getY()+gr.getHeight()<Config.BALL_RADIUS){
+                SoundEffect.Play(SoundEffect.vutmat);
                 gr.clear();
                 gr.remove();
+                this.board.DropBall();
+                this.board.setTouch(Touchable.enabled);
+                shark=true;
+                this.board.runtime=true;
+//                this.board.checkBallBusy=true;
+                if(id!=Config.FireBall)
+                    Config.combo=0;
+                return true;
             }
 //            System.out.println("speedX: "+speedX);
 //            System.out.println("speedY: "+speedY);
@@ -77,16 +96,44 @@ public class ball {
            return false;
         }));
     }
+    private void fireball(){
+        Image fire = GUI.createImage(TextureAtlasC.Boardgame,"fire");
+        fire.setOrigin(Align.center);
+        fire.setPosition(gr.getWidth()/2,gr.getHeight()/2,Align.center);
+        gr.addActor(fire);
+        aniRotate(fire);
+        shakScene();
+    }
+    private void shakScene(){
+        GLayer.ui.getGroup().addAction(Actions.sequence(
+                Actions.moveBy(-3,3,0.05f),
+                Actions.moveBy(6,-6,0.05f),
+                Actions.moveBy(-3,3,0.05f),
+                Actions.moveBy(3,-3,0.05f),
+                Actions.moveBy(-3,3,0.05f),
+                GSimpleAction.simpleAction((d,a)->{
+                    if(shark==true)
+                        return true;
+                    shakScene();
+                    return true;
+                })
+        ));
+    }
+    private void aniRotate(Image img){
+        img.addAction(Actions.sequence(
+                Actions.rotateBy(360,0.5f),
+                GSimpleAction.simpleAction((d,a)->{
+                    aniRotate(img);
+                    return true;
+                })
+        ));
+    }
+    public void Scale(float scale){
+        gr.setScale(scale);
+    }
     public void destroy(){
-        ball.clear();
-        ball.remove();
-        effectWin ef = new effectWin(1,id,Config.BALL_RADIUS,Config.BALL_RADIUS);
-        gr.addActor(ef);
-        ef.start();
-        Tweens.setTimeout(gr,1f,()->{
-            gr.clear();
-            gr.remove();
-        });
+        gr.clear();
+        gr.remove();
 
     }
     public boolean compare(BallGrid p) {

@@ -32,12 +32,12 @@ limitMemory=true
 useIndexes=true
 
 scaleFactors=[{suffix:"",factor:1,resampling:bicubic}]
-inputFiles=[{path:../../../assets/1.png,type:Input,regionName:null},{path:../../../assets/2.png,type:Input,regionName:null},{path:../../../assets/3.png,type:Input,regionName:null},{path:../../../assets/4.png,type:Input,regionName:null},{path:../../../assets/5.png,type:Input,regionName:null},{path:../../../assets/6.png,type:Input,regionName:null},{path:../../../assets/bg.png,type:Input,regionName:null}]
+inputFiles=[{path:../../../assets/1.png,type:Input,regionName:null},{path:../../../assets/2.png,type:Input,regionName:null},{path:../../../assets/3.png,type:Input,regionName:null},{path:../../../assets/4.png,type:Input,regionName:null},{path:../../../assets/5.png,type:Input,regionName:null},{path:../../../assets/6.png,type:Input,regionName:null},{path:../../../assets/bg.png,type:Input,regionName:null},{path:../../../assets/gun.png,type:Input,regionName:null},{path:../../../assets/fire.png,type:Input,regionName:null},{path:../../../assets/soc.png,type:Input,regionName:null},{path:../../../assets/frmTime.png,type:Input,regionName:null},{path:../../../assets/header.png,type:Input,regionName:null},{path:../../../assets/frmCombo.png,type:Input,regionName:null},{path:../../../assets/frmSc.png,type:Input,regionName:null},{path:../../../assets/tim3.png,type:Input,regionName:null},{path:../../../assets/tim11.png,type:Input,regionName:null},{path:../../../assets/time1.png,type:Input,regionName:null},{path:../../../assets/time2.png,type:Input,regionName:null},{path:../../../assets/time3.png,type:Input,regionName:null},{path:../../../assets/time4.png,type:Input,regionName:null},{path:../../../assets/time5.png,type:Input,regionName:null},{path:../../../assets/time6.png,type:Input,regionName:null},{path:../../../assets/time7.png,type:Input,regionName:null},{path:../../../assets/time8.png,type:Input,regionName:null},{path:../../../assets/time9.png,type:Input,regionName:null},{path:../../../assets/time10.png,type:Input,regionName:null},{path:../../../assets/time11.png,type:Input,regionName:null},{path:../../../assets/time12.png,type:Input,regionName:null},{path:../../../assets/crazy.png,type:Input,regionName:null},{path:../../../assets/fabulous.png,type:Input,regionName:null},{path:../../../assets/fireball.png,type:Input,regionName:null},{path:../../../assets/go.png,type:Input,regionName:null},{path:../../../assets/ready.png,type:Input,regionName:null},{path:../../../assets/wow.png,type:Input,regionName:null},{path:../../../assets/7.png,type:Input,regionName:null},{path:../../../assets/8.png,type:Input,regionName:null},{path:../../../assets/lightDot1.png,type:Input,regionName:null},{path:../../../assets/lightDot2.png,type:Input,regionName:null},{path:../../../assets/light1.png,type:Input,regionName:null},{path:../../../assets/light2.png,type:Input,regionName:null},{path:../../../assets/light3.png,type:Input,regionName:null},{path:../../../assets/light4.png,type:Input,regionName:null},{path:../../../assets/light5.png,type:Input,regionName:null},{path:../../../assets/light6.png,type:Input,regionName:null},{path:../../../assets/light7.png,type:Input,regionName:null},{path:../../../assets/LightDot1.png,type:Input,regionName:null},{path:../../../assets/LightDot2.png,type:Input,regionName:null},{path:../../../assets/LightDot3.png,type:Input,regionName:null},{path:../../../assets/LightDot4.png,type:Input,regionName:null},{path:../../../assets/LightDot5.png,type:Input,regionName:null},{path:../../../assets/LightDot6.png,type:Input,regionName:null},{path:../../../assets/LightDot7.png,type:Input,regionName:null},{path:../../../assets/9.png,type:Input,regionName:null},{path:../../../assets/light9.png,type:Input,regionName:null},{path:../../../assets/LightDot9.png,type:Input,regionName:null}]
 
 
 ---
 
-name=effect
+name=gameOver
 filename=
 output=.
 
@@ -69,6 +69,45 @@ square=false
 bleed=true
 limitMemory=true
 useIndexes=true
+
+scaleFactors=[{suffix:"",factor:1,resampling:bicubic}]
+inputFiles=[{path:../../../assets/gameOver/bgGameOver.png,type:Input,regionName:null},{path:../../../assets/gameOver/btnRed.png,type:Input,regionName:null},{path:../../../assets/gameOver/frmOver.png,type:Input,regionName:null},{path:../../../assets/gameOver/frmTitle.png,type:Input,regionName:null},{path:../../../assets/gameOver/iconCoin.png,type:Input,regionName:null},{path:../../../assets/gameOver/iconHighSc.png,type:Input,regionName:null},{path:../../../assets/gameOver/iconMission.png,type:Input,regionName:null},{path:../../../assets/gameOver/iconStar.png,type:Input,regionName:null},{path:../../../assets/gameOver/icon1.png,type:Input,regionName:null},{path:../../../assets/gameOver/icon2.png,type:Input,regionName:null},{path:../../../assets/gameOver/icon3.png,type:Input,regionName:null},{path:../../../assets/gameOver/icon4.png,type:Input,regionName:null}]
+
+
+---
+
+name=effect
+filename=
+output=.
+
+alias=false
+alphaThreshold=0
+debug=false
+duplicatePadding=false
+edgePadding=true
+fast=false
+filterMag=Nearest
+filterMin=Nearest
+ignoreBlankImages=true
+maxHeight=2048
+maxWidth=2048
+minHeight=16
+minWidth=16
+paddingX=2
+paddingY=2
+pot=true
+mof=false
+rotation=false
+stripWhitespaceX=false
+stripWhitespaceY=false
+wrapX=ClampToEdge
+wrapY=ClampToEdge
+premultiplyAlpha=false
+grid=false
+square=false
+bleed=true
+limitMemory=true
+useIndexes=false
 
 scaleFactors=[{suffix:"",factor:1,resampling:bicubic}]
 inputFiles=[{path:../../../assets/ef1.png,type:Input,regionName:null},{path:../../../assets/ef2.png,type:Input,regionName:null},{path:../../../assets/ef3.png,type:Input,regionName:null},{path:../../../assets/ef4.png,type:Input,regionName:null},{path:../../../assets/ef5.png,type:Input,regionName:null}]

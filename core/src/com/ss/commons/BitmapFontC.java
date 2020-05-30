@@ -4,23 +4,25 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.ss.core.util.GAssetsManager;
 
 public class BitmapFontC {
-  public static BitmapFont roboto;
-  public static BitmapFont robotoVi;
-  public static BitmapFont RobotoViGrey;
-  public static BitmapFont NerwynGrey;
-  public static BitmapFont NerwynOrange;
-  public static BitmapFont RubikOne;
-  public static BitmapFont FontYellow;
+  public static BitmapFont timeFont;
   public static BitmapFont FontAlert;
+  public static BitmapFont FontScore;
+  public static BitmapFont FontGray;
+  public static BitmapFont FontOrange;
+  public static BitmapFont Font;
+  public static BitmapFont Font_Yellow;
+  public static BitmapFont FontRed;
+  public static BitmapFont Font_White;
 
   public static void initBitmapFont(){
-    roboto = GAssetsManager.getBitmapFont("RobotoCyan.fnt");
-    robotoVi = GAssetsManager.getBitmapFont("RobotoVi.fnt");
-    RobotoViGrey = GAssetsManager.getBitmapFont("RobotoViGrey.fnt");
-    NerwynGrey = GAssetsManager.getBitmapFont("NerwynGrey.fnt");
-    NerwynOrange = GAssetsManager.getBitmapFont("NerwynOrange.fnt");
-    RubikOne = GAssetsManager.getBitmapFont("RubikOne.fnt");
-    FontYellow = GAssetsManager.getBitmapFont("myfont.fnt");
+    timeFont = GAssetsManager.getBitmapFont("font_Time.fnt");
     FontAlert = GAssetsManager.getBitmapFont("alert_font.fnt");
+    FontScore = GAssetsManager.getBitmapFont("font_Score.fnt");
+    FontGray = GAssetsManager.getBitmapFont("font_Gray.fnt");
+    FontOrange = GAssetsManager.getBitmapFont("font_Orange.fnt");
+    Font = GAssetsManager.getBitmapFont("font2.fnt");
+    Font_Yellow = GAssetsManager.getBitmapFont("font_Yellow.fnt");
+    FontRed = GAssetsManager.getBitmapFont("font_Red.fnt");
+    Font_White =  GAssetsManager.getBitmapFont("font_White.fnt");
   }
 }
