@@ -53,7 +53,7 @@ public class ball {
         gr.setSize(ball.getWidth(),ball.getHeight());
         gr.setOrigin(Align.center);
         gr.setPosition(x,y,Align.center);
-        gr.debug();
+//        gr.debug();
         if(id==Config.FireBall)
             fireball();
         if(id==Config.ChangeColor)
@@ -75,11 +75,13 @@ public class ball {
                 gr.remove();
                 this.board.DropBall();
                 this.board.setTouch(Touchable.enabled);
+                this.board.SetTouchSwap(Touchable.enabled);
                 shark=true;
                 this.board.runtime=true;
 //                this.board.checkBallBusy=true;
-                if(id!=Config.FireBall)
+                if(id!=Config.FireBall){
                     Config.combo=0;
+                }
                 return true;
             }
 //            System.out.println("speedX: "+speedX);
@@ -97,11 +99,7 @@ public class ball {
         }));
     }
     private void fireball(){
-        Image fire = GUI.createImage(TextureAtlasC.Boardgame,"fire");
-        fire.setOrigin(Align.center);
-        fire.setPosition(gr.getWidth()/2,gr.getHeight()/2,Align.center);
-        gr.addActor(fire);
-        aniRotate(fire);
+        aniRotate(ball);
         shakScene();
     }
     private void shakScene(){

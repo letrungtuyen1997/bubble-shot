@@ -23,6 +23,17 @@ public class C {
         public static String adsTimeLbl = "";
         public static String  gameover= "";
         public static String  timeup= "";
+        public static String status = "";
+        public static String status1 = "";
+        public static String status2 = "";
+        public static String lbYsc = "";
+        public static String lbHsc = "";
+        public static String lbBonus = "";
+        public static String lbReward = "";
+        public static String lbBtnRed = "";
+        public static String lbAchiment = "";
+        public static String lbComplete = "";
+
 
 
 
@@ -47,6 +58,16 @@ public class C {
             adsTimeLbl = locale.format("adsTime", remote.adsTime);
             gameover = locale.get("gameover");
             timeup = locale.get("timeup");
+            status = locale.get("status");
+            status1 = locale.get("status1");
+            status2 = locale.get("status2");
+            lbYsc = locale.get("lbYsc");
+            lbHsc = locale.get("lbHsc");
+            lbBonus = locale.get("lbBonus");
+            lbReward = locale.get("lbReward");
+            lbBtnRed = locale.get("lbBtnRed");
+            lbAchiment = locale.get("lbAchiment");
+            lbComplete = locale.get("lbComplete");
         }
     }
 

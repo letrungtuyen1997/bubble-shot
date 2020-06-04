@@ -16,4 +16,9 @@ public class TextureAtlasC {
 //    Fottergame = GAssetsManager.getTextureAtlas("fotter.atlas");
 //    WhellAtlas = GAssetsManager.getTextureAtlas("wheel.atlas");
   }
+  public static void loadAtlas(){
+    GAssetsManager.loadTextureAtlas("board.atlas");
+    GAssetsManager.loadTextureAtlas("effect.atlas");
+    GAssetsManager.loadTextureAtlas("gameOver.atlas");
+  }
 }

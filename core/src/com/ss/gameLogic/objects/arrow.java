@@ -7,6 +7,7 @@ import com.badlogic.gdx.utils.Array;
 import com.ss.commons.TextureAtlasC;
 import com.ss.core.util.GStage;
 import com.ss.core.util.GUI;
+import com.ss.gameLogic.config.Config;
 
 public class arrow {
     private boolean checkRec=false;
@@ -28,7 +29,6 @@ public class arrow {
             group.addActor(dot);
             dotright.add(dot);
         }
-
 
         for (int i=1;i<3;i++){
             String type="light"+id;
@@ -74,8 +74,8 @@ public class arrow {
             setVisible(dotleft,false);
             for (int i=0; i<dotright.size;i++){
                 float x0=0,y0=0;
-                x0 = mouse_x - ((Distance(ball_x,ball_y,mouse_x,mouse_y)/4)*(i+1))*(float) Math.cos(deg);
-                y0 = mouse_y - ((Distance(ball_x,ball_y,mouse_x,mouse_y)/4)*(i+1))*(float) Math.sin(deg);
+                x0 = mouse_x - ((Distance(ball_x,ball_y,mouse_x- Config.BALL_RADIUS,mouse_y- Config.BALL_RADIUS)/4)*(i+1))*(float) Math.cos(deg);
+                y0 = mouse_y - ((Distance(ball_x,ball_y,mouse_x- Config.BALL_RADIUS,mouse_y- Config.BALL_RADIUS)/4)*(i+1))*(float) Math.sin(deg);
                 dotright.get(i).setPosition(x0,y0,Align.center);
 
             }
@@ -85,8 +85,8 @@ public class arrow {
             check=true;
             for (int i=0; i<dotleft.size;i++){
                 float x0=0,y0=0;
-                x0 = mouse_x - ((Distance(ball_x,ball_y,mouse_x,mouse_y)/4)*(i+1))*(float) Math.cos(deg);
-                y0 = mouse_y - ((Distance(ball_x,ball_y,mouse_x,mouse_y)/4)*(i+1))*(float) Math.sin(deg);
+                x0 = mouse_x - ((Distance(ball_x,ball_y,mouse_x- Config.BALL_RADIUS,mouse_y- Config.BALL_RADIUS)/4)*(i+1))*(float) Math.cos(deg);
+                y0 = mouse_y - ((Distance(ball_x,ball_y,mouse_x- Config.BALL_RADIUS,mouse_y- Config.BALL_RADIUS)/4)*(i+1))*(float) Math.sin(deg);
                 dotleft.get(i).setPosition(x0,y0,Align.center);
 
             }

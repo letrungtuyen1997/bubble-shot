@@ -21,6 +21,9 @@ import com.ss.core.util.GAssetsManager;
 public class effectWin extends Actor{
 
     FileHandle Destroy = Gdx.files.internal("effects/destroy");
+    FileHandle FireBall = Gdx.files.internal("effects/fireBall");
+    FileHandle Bomb = Gdx.files.internal("effects/bomb");
+    FileHandle star = Gdx.files.internal("effects/star");
     public ParticleEffect effect;
     public ParticleEffectPool effectPool;
     public ParticleEffectPool.PooledEffect pooledEffect;
@@ -51,7 +54,38 @@ public class effectWin extends Actor{
 //                this.effect.getEmitters().get(0).getSprites().swap(0,(id2-1));
                 this.effect.scaleEffect(1.5f);
 
+            }else if(id==2){
+
+                this.effect.load(FireBall, TextureAtlasC.effectAtlas);
+                for (int i = 0; i < this.effect.getEmitters().size; i++) {
+                    ((ParticleEmitter) this.effect.getEmitters().get(i)).flipY();
+                    ((ParticleEmitter) this.effect.getEmitters().get(i)).setFlip(true,false);
+                }
+//                this.effect.getEmitters().get(0).getSprites().swap(0,(id2-1));
+                this.effect.scaleEffect(1f);
+
+            }else if(id==3){
+
+                this.effect.load(Bomb, TextureAtlasC.effectAtlas);
+                for (int i = 0; i < this.effect.getEmitters().size; i++) {
+                    ((ParticleEmitter) this.effect.getEmitters().get(i)).flipY();
+                    ((ParticleEmitter) this.effect.getEmitters().get(i)).setFlip(true,false);
+                }
+//                this.effect.getEmitters().get(0).getSprites().swap(0,(id2-1));
+                this.effect.scaleEffect(1f);
+
+            }else if(id==4){
+
+                this.effect.load(star, TextureAtlasC.effectAtlas);
+                for (int i = 0; i < this.effect.getEmitters().size; i++) {
+                    ((ParticleEmitter) this.effect.getEmitters().get(i)).flipY();
+                    ((ParticleEmitter) this.effect.getEmitters().get(i)).setFlip(true,false);
+                }
+//                this.effect.getEmitters().get(0).getSprites().swap(0,(id2-1));
+                this.effect.scaleEffect(1.2f);
+
             }
+
 
 
         this.effect.setPosition(f, f2);
@@ -71,6 +105,9 @@ public class effectWin extends Actor{
 //        System.out.println("check: "+this.effect.getEmitters().get(0).getSprites().size);
         if(this.effect.getEmitters().get(0).getSprites()!=null)
             this.effect.getEmitters().get(0).getSprites().swap(0,(id-1));
+
+    }
+    public void changeEffect(int id){
 
     }
     public void SetPosition(float x,float y){
@@ -95,14 +132,7 @@ public class effectWin extends Actor{
         }
     }
 
-//    public void act(float f) {
-//        super.act(f);
-//        this.effect.setPosition(getX(), getY());
-//        this.effect.update(f);
-//        if(this.effect.isComplete()){
-//            remove();
-//        }
-//    }
+
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
@@ -114,16 +144,6 @@ public class effectWin extends Actor{
         this.effect.dispose();
     }
 
-//    public void draw(Batch batch, float f) {
-//        super.draw(batch, f);
-//        if (!this.effect.isComplete()) {
-//            this.effect.draw(batch);
-//            return;
-//        }
-//        this.effect.dispose();
-//
-//
-//    }
 
     public void setScale(float ratio){
         this.effect.scaleEffect(ratio);

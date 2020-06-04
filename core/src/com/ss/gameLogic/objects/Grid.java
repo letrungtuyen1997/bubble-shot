@@ -21,6 +21,8 @@ import com.ss.effects.SoundEffect;
 import com.ss.effects.effectWin;
 import com.ss.gameLogic.config.C;
 import com.ss.gameLogic.config.Config;
+import com.ss.scenes.GameOverScene;
+import com.ss.scenes.GameScene;
 
 public class Grid {
     public float x,y;
@@ -51,24 +53,30 @@ public class Grid {
     private header header;
     private board board;
     private Array<effectWin> arrEffect = new Array<>();
-    private int countClock=0;
-    private int conntBomb=0;
+    private Array<effectWin> arrEffectFireBall = new Array<>();
+    private Array<effectWin> arrEffectBomb = new Array<>();
+    private int countClock = 0;
+    private int conntBomb = 0;
+    private GameScene gameScene;
+    private boolean checkRepeat = false;
 
-
-
-
-    Grid(header header,board board){
+    Grid(header header, board board, GameScene gameScene){
         this.header = header;
         this.board = board;
+        this.gameScene = gameScene;
         GStage.addToLayer(GLayer.ui,grGrid);
         GStage.addToLayer(GLayer.top,grCombo);
-        GStage.addToLayer(GLayer.top,grParticle);
+        GStage.addToLayer(GLayer.ui,grParticle);
         grParticle.addActor(grWow);
         grParticle.addActor(grCrazy);
         grParticle.addActor(grFabulous);
-        for (int i=0;i<200;i++){
+        for (int i=0;i<80;i++){
             effectWin ef = new effectWin(1,0,0,grParticle);
             arrEffect.add(ef);
+            effectWin ef1 = new effectWin(2,0,0,grParticle);
+            arrEffectFireBall.add(ef1);
+            effectWin ef2 = new effectWin(3,0,0,grParticle);
+            arrEffectBomb.add(ef2);
         }
         createLine();
         moveGrid();
@@ -81,7 +89,7 @@ public class Grid {
 
     private void createLine(){
 
-        LineGrid.createLine(0,-Config.ROW_HEGHT*5+Config.BALL_RADIUS, GStage.getWidth(),Config.ballApear+Config.BALL_RADIUS);
+        LineGrid.createLine(0,Config.ballApear+Config.BALL_RADIUS, GStage.getWidth(),Config.ballApear+Config.BALL_RADIUS);
 //        LineGrid.setY(-Config.ROW_HEGHT*5+Config.BALL_RADIUS);
         LineGrid.setColor(1,0,1,1f);
         grGrid.addActor(LineGrid);
@@ -143,19 +151,29 @@ public class Grid {
         }
         level++;
         countClock++;
-        if(level>30)
+        if(checkRepeat==false){
+            if(level<10)
+                Config.ballType=1;
+            else if(level>=10&&level<30)
+                Config.ballType=2;
+            else if(level>=30&&level<60)
+                Config.ballType=3;
+            else if(level>=60&&level<75){
+                Config.ballType=4;
+            }else
+                Config.ballType=5;
+        }else {
+            Config.ballType=5;
+
+        }
+
+        if(level>100){
             level=0;
+            checkRepeat=true;
+        }
         int[] arrlv = Config.LoadLv(level).lv;
        // System.out.println("check level!!!!!! "+arrlv.length);
-        int quan=0;
-        if(level<10)
-            quan=2;
-        else if(level>=10&&level<20)
-            quan=3;
-        else if(level>=20&&level<30)
-            quan=4;
-        else
-            quan=5;
+
         Array<BallGrid> NewrowBalls = new Array<>();
         for(int j=0;j<quantity;j++){
             int check=0;
@@ -166,7 +184,7 @@ public class Grid {
             }
             if(check!=arrlv.length){
 //                System.out.println("ve: "+arrlv[i]);
-                int type = (int)(Math.random()*quan)+1;
+                int type = (int)(Math.random()*Config.ballType)+1;
                 boolean time=false;
                 if(countClock==Config.timeSkillClock){
                     Config.timeSkillClock+=Config.pecentSkillClock;
@@ -187,32 +205,8 @@ public class Grid {
             return true;
         return false;
     }
-    public void checkAllBall(BallGrid ball){
-        arrBallSame.clear();
-//        System.out.println("Ball: [row: "+ball.row+"  col: "+ball.col);
-        BallAround(arrGridBall,ball,ball.row,ball.col);
-//        System.out.println("check: "+arrBallSame.size);
-        if(arrBallSame.size>1){
-//            System.out.println("set");
-            for (BallGrid p: arrBallSame){
-//                System.out.println("Ball: [row: "+p.row+"  col: "+p.col);
-                arrGridBall.get(p.row).set(p.col,null);
-//                setArrGridBall(p);
-                p.destroy();
-            }
-        }
-    }
-    private void setArrGridBall(BallGrid p){
-        for (int i=0;i<arrGridBall.size;i++){
-            for (int j=0; j<arrGridBall.get(i).size;j++){
-                if(arrGridBall.get(i).get(j)!=null){
-                    if(p.row==arrGridBall.get(i).get(j).row && p.col == arrGridBall.get(i).get(j).col){
-                        arrGridBall.get(i).set(j,null);
-                    }
-                }
-            }
-        }
-    }
+
+
     public void BallAround(Array<Array<BallGrid>> input, BallGrid ball,int row, int col){
         if (row < 0 || row >= input.size || col < 0 || col >= input.get(row).size)
             return;
@@ -324,6 +318,20 @@ public class Grid {
                 efs = e;
             return efs;
     }
+    public effectWin efFireBall(){
+        effectWin efs=null;
+        for (effectWin e: arrEffectFireBall)
+            if(e.isAlive==false)
+                efs = e;
+        return efs;
+    }
+    public effectWin efBomb(){
+        effectWin efs=null;
+        for (effectWin e: arrEffectBomb)
+            if(e.isAlive==false)
+                efs = e;
+        return efs;
+    }
     private void detroyBall(BallGrid ballGrid){
         exploxe=0;
 //        if(this.board.checkFireBall==true){
@@ -345,7 +353,7 @@ public class Grid {
             for (BallGrid p :arrBallSame){
                 if(p.gr.getY()>0){
                     arrGridBall.get(p.row).set(p.col,null);
-                    p.destroy();
+                    p.destroy(0);
                 }
             }
                 DropBall();
@@ -551,7 +559,7 @@ public class Grid {
         if(Config.combo>=5){
             Bonus=(long) ((float)(Config.combo)/Config.PercentScCB*ScoreBall);
         }
-        System.out.println("bonus: "+ScoreBall);
+//        System.out.println("bonus: "+ScoreBall);
         ScoreBall+=Bonus;
         Label lb = new Label(""+ScoreBall,new Label.LabelStyle(BitmapFontC.FontScore,null));
         lb.setFontScale(1.5f);
@@ -580,9 +588,10 @@ public class Grid {
             GStage.addToLayer(GLayer.top,gr);
             long Bonus=0;
             if(Config.combo>=5){
-                Bonus=(long) ((float)(Config.combo)/Config.PercentScCB)*Config.ScBallDrop;
+                float per=(float)Config.combo/Config.PercentScCB;
+                Bonus= (long) (per*Config.ScBallDrop);
             }
-            ScoreBallDrop += Config.ScBallDrop+Bonus;
+            ScoreBallDrop += (Config.ScBallDrop+Bonus);
             lbDrop = new Label(""+ScoreBallDrop,new Label.LabelStyle(BitmapFontC.FontScore,null));
             lbDrop.setFontScale(2f);
             lbDrop.setOrigin(Align.center);
@@ -606,9 +615,11 @@ public class Grid {
             SoundEffect.Play(SoundEffect.drop2);
             long Bonus=0;
             if(Config.combo>=5){
-                Bonus=(long) ((float)(Config.combo)/Config.PercentScCB)*Config.ScBallDrop;
+                float per=(float)Config.combo/Config.PercentScCB;
+                Bonus= (long) (per*Config.ScBallDrop);
+
             }
-            ScoreBallDrop += Config.ScBallDrop+Bonus;
+            ScoreBallDrop += (Config.ScBallDrop+Bonus);
             lbDrop.setText(""+ScoreBallDrop);
         }
 
@@ -627,7 +638,7 @@ public class Grid {
             lb.setFontScale(0.6f);
             lb.setOrigin(Align.center);
             lb.setAlignment(Align.center);
-            lb.setPosition(frmCombo.getX()+frmCombo.getWidth()/2,0,Align.center);
+            lb.setPosition(frmCombo.getX()+frmCombo.getWidth()/2,lb.getPrefHeight()/3,Align.center);
             grCombo.addActor(lb);
 
             frmCombo.setScale(0,1);
@@ -636,8 +647,9 @@ public class Grid {
                     Actions.scaleTo(1,1,0.1f),
                     GSimpleAction.simpleAction((d,a)->{
                         lbCombo = new Label(""+Config.combo,new Label.LabelStyle(BitmapFontC.FontScore,null));
-                        lbCombo.setPosition(frmCombo.getX()+frmCombo.getWidth()/2,frmCombo.getY()+frmCombo.getHeight()/2,Align.center);
+                        lbCombo.setAlignment(Align.center);
                         lbCombo.setOrigin(Align.center);
+                        lbCombo.setPosition(frmCombo.getX()+frmCombo.getWidth()/2,frmCombo.getY()+frmCombo.getHeight()*0.38f,Align.center);
                         grCombo.addActor(lbCombo);
                         return true;
                     })
@@ -658,17 +670,17 @@ public class Grid {
         if(quantity>=Config.Wow && quantity<Config.Crazy){
             SoundEffect.Play(SoundEffect.wow);
             bonusSc(x,y+100,Config.ScoreWow);
-            AniFireBall(x,y+100,grWow);
+            AniFireBall(GStage.getWorldWidth()/2,GStage.getWorldHeight()/2,grWow);
         }
         if(quantity>=Config.Crazy && quantity<Config.Fabulous){
             SoundEffect.Play(SoundEffect.crazy);
             bonusSc(x,y+100,Config.ScoreCrazy);
-            AniFireBall(x,y+100,grCrazy);
+            AniFireBall(GStage.getWorldWidth()/2,GStage.getWorldHeight()/2,grCrazy);
         }
         if(quantity>=Config.Fabulous){
             SoundEffect.Play(SoundEffect.fabulous);
             bonusSc(x,y+100,Config.ScoreFabulous);
-            AniFireBall(x,y+100,grFabulous);
+            AniFireBall(GStage.getWorldWidth()/2,GStage.getWorldHeight()/2,grFabulous);
         }
     }
     private void createExpecial(String type,Group gr){
@@ -735,12 +747,13 @@ public class Grid {
         }else {
             even=1;
         }
+        findClusters3(input,ball,row-1,col-even);
+        findClusters3(input,ball,row-1,col+odd);
         findClusters3(input,ball,row,col+1);
         findClusters3(input,ball,row,col-1);
-        findClusters3(input,ball,row-1,col-even);
         findClusters3(input,ball,row+1,col+odd);
         findClusters3(input,ball,row+1,col-even);
-        findClusters3(input,ball,row-1,col+odd);
+
     }
     private void findClusters4(Array<Array<BallGrid>> input, BallGrid ball,int row, int col){
         if (row < 0 || row >= input.size || col < 0 || col >= input.get(row).size)
@@ -762,8 +775,8 @@ public class Grid {
             even=1;
         }
         findClusters4(input,ball,row,col+1);
-        findClusters4(input,ball,row,col-1);
         findClusters4(input,ball,row-1,col-even);
+        findClusters4(input,ball,row,col-1);
         findClusters4(input,ball,row+1,col+odd);
         findClusters4(input,ball,row+1,col-even);
         findClusters4(input,ball,row-1,col+odd);
@@ -778,7 +791,7 @@ public class Grid {
                 Config.typeChangeColor = type;
                 for (BallGrid p: arrBallColor){
                     connt++;
-                    if(connt<=15&&p.gr.getY()>0){
+                    if(connt<=25&&p.gr.getY()>0){
                         p.changeColor(type);
                     }
                 }
@@ -801,7 +814,7 @@ public class Grid {
                     conntBomb++;
                     arrGridBall.get(p.row).set(p.col,null);
                     Tweens.setTimeout(grParticle,0.01f*arrBallBomb.indexOf(p,true),()->{
-                        p.destroy();
+                        p.destroy(2);
                     });
                 }
             }
@@ -823,8 +836,10 @@ public class Grid {
         gr.setOrigin(Align.center);
         gr.setPosition(GStage.getWorldWidth() / 2, GStage.getWorldHeight() / 2);
         gr.addAction(Actions.sequence(
-            Actions.moveBy(0, -GStage.getWorldHeight()/2, 1f, Interpolation.swingIn),
+            Actions.moveBy(0, -GStage.getWorldHeight()*0.6f, 1.5f, Interpolation.swingIn),
+            Actions.delay(1),
             GSimpleAction.simpleAction((d,a)->{
+                this.gameScene.setScreen(new GameOverScene());
                 gr.clear();;
                 gr.remove();
                 return true;

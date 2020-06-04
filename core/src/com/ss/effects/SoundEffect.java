@@ -30,6 +30,11 @@ public class SoundEffect {
   public static int go = 13;
   public static int ready = 14;
   public static int timeDown = 15;
+  public static int ScUp = 16;
+  public static int ExpUp = 17;
+  public static int MonneyUp = 18;
+  public static int Bomb = 19;
+  public static int ChangeColor = 20;
   private static Sound[] explode;
 
 
@@ -54,6 +59,12 @@ public class SoundEffect {
     commons[go] = GAssetsManager.getSound("go.mp3");
     commons[ready] = GAssetsManager.getSound("ready.mp3");
     commons[timeDown] = GAssetsManager.getSound("timeDown.mp3");
+    commons[ScUp] = GAssetsManager.getSound("ScUp.mp3");
+    commons[ExpUp] = GAssetsManager.getSound("ExpUp.mp3");
+    commons[MonneyUp] = GAssetsManager.getSound("Coin.mp3");
+    commons[Bomb] = GAssetsManager.getSound("Bomb.mp3");
+    commons[ChangeColor] = GAssetsManager.getSound("ChangeColor.mp3");
+
 //    commons[complete] = GAssetsManager.getSound("stageclear.mp3");
 //    commons[Good] = GAssetsManager.getSound("Good.mp3");
 //    commons[Great] = GAssetsManager.getSound("Great.mp3");

@@ -35,7 +35,7 @@ public class header {
         /////////// Color Time////////
         for (int i=1;i<13;i++){
             Image color = GUI.createImage(TextureAtlasC.Boardgame,"time"+i);
-            color.setPosition(frmTimer.getX()+frmTimer.getWidth()*0.65f,frmTimer.getY()+frmTimer.getHeight()*0.5f,Align.center);
+            color.setPosition(frmTimer.getX()+frmTimer.getWidth()*0.7f,frmTimer.getY()+frmTimer.getHeight()*0.5f,Align.center);
             grHeader.addActor(color);
             if(i!=12)
                 color.setVisible(false);

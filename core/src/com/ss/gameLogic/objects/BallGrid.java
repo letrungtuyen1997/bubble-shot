@@ -79,15 +79,21 @@ public class BallGrid {
         }
     }
     public void updatePosition(float y){
+//        gr.addAction(Actions.moveBy(0,y,0));
         gr.setY(gr.getY()+y);
         this.y = gr.getY();
         body.setX(gr.getX());
         body.setY(gr.getY());
     }
-    public void destroy(){
+    public void destroy(int Type){
         ef = grid.ef();
+        if(Type==1)
+            ef=grid.efFireBall();
+        if(Type==2)
+            ef=grid.efBomb();
         if(ef!=null){
-            ef.changeSprites(id);
+            if(Type!=1 && Type!=2)
+                ef.changeSprites(id);
             ef.setPosition(gr.getX()+Config.BALL_RADIUS,gr.getY()+Config.BALL_RADIUS);
             ef.start();
         }
@@ -114,18 +120,7 @@ public class BallGrid {
                 })
         ));
     }
-    public void addListenner(){
-        gr.addListener(new ClickListener(){
-            @Override
-            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                super.touchUp(event, x, y, pointer, button);
-                System.out.println("touch");
-                grid.checkAllBall(BallGrid.this);
-//                destroy();
 
-            }
-        });
-    }
     public boolean compare(BallGrid p) {
         return (this.id == p.id);
     }
@@ -141,13 +136,13 @@ public class BallGrid {
                                 Config.rowDrop=row;
                                 grid.CountScoreDrop(gr.getX(),gr.getY());
                             }
-                            destroy();
+                            destroy(0);
                             return true;
                         })
                 ));
                 return true;
             }
-            gr.setY(gr.getY()+yDrop);
+            gr.addAction(Actions.moveBy(0,yDrop,0f,Interpolation.swing));
 //            gr.setPosition(gr.getX()+speedX,gr.getY()-speedY);
             x=gr.getX();
             y=gr.getY();

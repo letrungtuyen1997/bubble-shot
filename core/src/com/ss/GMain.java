@@ -23,6 +23,7 @@ import com.ss.effects.SoundEffect;
 import com.ss.gameLogic.config.C;
 import com.ss.scenes.GameOverScene;
 import com.ss.scenes.GameScene;
+import com.ss.scenes.loadingScene;
 
 public class GMain extends GDirectedGame {
 
@@ -94,15 +95,15 @@ public class GMain extends GDirectedGame {
   
   private static GScreen menuScreen()
   {
-    return new GameOverScene();
+    return new loadingScene();
   }
 
   public void create()
   {
     initLocalNotification();
-    SoundEffect.initSound();
-    TextureAtlasC.initAtlas();
-    BitmapFontC.initBitmapFont();
+//    SoundEffect.initSound();
+//    TextureAtlasC.initAtlas();
+//    BitmapFontC.initBitmapFont();
     this.init();
     this.initPrefs();
     C.init();
@@ -112,7 +113,9 @@ public class GMain extends GDirectedGame {
   }
 
   private void initPrefs(){
-    prefs = Gdx.app.getPreferences("My Preferences5");
+    prefs = Gdx.app.getPreferences("My Preferences");
+//    prefs.clear();
+//    prefs.flush();
   }
 
   public void dispose()

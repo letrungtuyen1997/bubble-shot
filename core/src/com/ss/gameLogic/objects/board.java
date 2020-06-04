@@ -10,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import com.ss.commons.TextureAtlasC;
+import com.ss.commons.Tweens;
 import com.ss.core.action.exAction.GSimpleAction;
 import com.ss.core.exSprite.GShapeSprite;
 import com.ss.core.util.GLayer;
@@ -17,6 +18,7 @@ import com.ss.core.util.GStage;
 import com.ss.core.util.GUI;
 import com.ss.effects.SoundEffect;
 import com.ss.gameLogic.config.Config;
+import com.ss.scenes.GameScene;
 
 
 public class board {
@@ -25,7 +27,7 @@ public class board {
     private Group grFireBall = new Group();
     private Group WhiteGr = new Group();
     public ball ball,ballNext, ballMove;
-    private Image Gun,btnSwapBall;
+    private Image Gun,btnSwapBall,sole ;
     private float mousePosX=0;
     private float mousePosY=0;
     final GShapeSprite WhiteOverLay = new GShapeSprite();
@@ -38,9 +40,10 @@ public class board {
     private int countSkillBomb=0;
     private int typeBomb=0;
     private arrow arrow;
+    double deg;
 
 
-    public board(Group MainGroup,header header){
+    public board(Group MainGroup, header header, GameScene gameScene){
         this.header = header;
         ReadyGame();
         this.MainGroup = MainGroup;
@@ -52,7 +55,7 @@ public class board {
         CreateBallNext();
         MouseOver();
         moveBall();
-        grid = new Grid(header,this);
+        grid = new Grid(header,this,gameScene);
         BtnSwapBall();
         setTouch(Touchable.disabled);
         createFireBall();
@@ -62,7 +65,7 @@ public class board {
         Group gr = new Group();
         GStage.addToLayer(GLayer.top,gr);
         Image Ready = GUI.createImage(TextureAtlasC.Boardgame,"ready");
-        Ready.setScale(1.5f);
+        Ready.setScale(1.2f);
         Ready.setOrigin(Align.center);
         Ready.setPosition(GStage.getWorldWidth()/2,GStage.getWorldHeight()/2,Align.center);
         gr.addActor(Ready);
@@ -90,16 +93,21 @@ public class board {
         ));
     }
     private void Gun(){
+
+        sole = GUI.createImage(TextureAtlasC.Boardgame,"sole");
+        sole.setPosition(GStage.getWorldWidth()/2,GStage.getWorldHeight()-sole.getHeight(),Align.center);
+        MainGroup.addActor(sole);
         Gun = GUI.createImage(TextureAtlasC.Boardgame,"gun");
-        Gun.setPosition(GStage.getWorldWidth()/2,GStage.getWorldHeight()-Gun.getHeight()/2-20, Align.center);
+        Gun.setPosition(sole.getX()+sole.getWidth()/2,sole.getY()-Gun.getHeight()*0.1f, Align.center);
         MainGroup.addActor(Gun);
+        Gun.setOrigin(Align.top);
         Image soc = GUI.createImage(TextureAtlasC.Boardgame,"soc");
-        soc.setPosition(Gun.getX()-130,Gun.getY()+Gun.getHeight()/2,Align.center);
+        soc.setPosition(sole.getX()-130,sole.getY()+sole.getHeight()/2,Align.center);
         MainGroup.addActor(soc);
     }
     private void BtnSwapBall(){
-        btnSwapBall = GUI.createImage(TextureAtlasC.Boardgame,"gun");
-        btnSwapBall.setPosition(GStage.getWorldWidth()/2,GStage.getWorldHeight()-Gun.getHeight()/2-20, Align.center);
+        btnSwapBall = GUI.createImage(TextureAtlasC.Boardgame,"sole");
+        btnSwapBall.setPosition(GStage.getWorldWidth()/2,GStage.getWorldHeight()-sole.getHeight(), Align.center);
         btnSwapBall.setColor(Color.CLEAR);
         WhiteGr.addActor(btnSwapBall);
         btnSwapBall.addListener(new ClickListener(){
@@ -110,14 +118,21 @@ public class board {
             }
         });
     }
+    public void SetTouchSwap(Touchable set){
+        btnSwapBall.setTouchable(set);
+    }
     private void SwapBall(){
         int type = ballNext.id;
         typeBallNext = ball.id;
         ball.destroy();
         ballNext.destroy();
-        ball = new ball(Gun.getX()+Gun.getWidth()/2,Gun.getY()+Gun.getHeight()/2,type,this);
-        ballNext = new ball(Gun.getX()-80,Gun.getY()+Gun.getHeight()*0.6f,typeBallNext,this);
+        ball = new ball(sole.getX()+sole.getWidth()/2,sole.getY()+sole.getHeight()*0.4f,type,this);
+        ballNext = new ball(sole.getX()-80,sole.getY()+sole.getHeight()*0.6f,typeBallNext,this);
         ballNext.Scale(0.7f);
+        arrowGr.clear();
+        arrow = new arrow(ball.x,ball.y,mousePosX,mousePosY,arrowGr,ball.id);
+        arrowGr.setVisible(false);
+
     }
     private void WhiteOverLay(){
         GStage.addToLayer(GLayer.top,WhiteGr);
@@ -128,23 +143,10 @@ public class board {
     private void CreateBallPlay(){
                 System.out.println("Comboooo: "+Config.combo);
         int type = typeBallNext;
-//        /////// skill change color//////
-//        if(Config.typeChangeColor!=0){
-//            type=Config.typeChangeColor;
-//            Config.typeChangeColor=0;
-//        }
-        /////// skill fire ball//////
-//        if(Config.combo%3==0&&Config.combo>0){
-//            AniFireBall();
-//            type=Config.FireBall;
-//            SoundEffect.Play(SoundEffect.fireball);
-//            Config.combo++;
-//        }
-        ball = new ball(Gun.getX()+Gun.getWidth()/2,Gun.getY()+Gun.getHeight()/2,type,this);
+        ball = new ball(sole.getX()+sole.getWidth()/2,sole.getY()+sole.getHeight()*0.4f,type,this);
         arrow = new arrow(ball.x,ball.y,mousePosX,mousePosY,arrowGr,ball.id);
         arrowGr.setVisible(false);
 
-//        setBallFire();
     }
     public void setBallFire(){
         /////// skill fire ball//////
@@ -154,12 +156,11 @@ public class board {
             SoundEffect.Play(SoundEffect.fireball);
             Config.combo++;
             ball.destroy();
-            ball = new ball(Gun.getX()+Gun.getWidth()/2,Gun.getY()+Gun.getHeight()/2,type,this);
+            ball = new ball(sole.getX()+sole.getWidth()/2,sole.getY()+sole.getHeight()*0.4f,type,this);
             arrowGr.clear();
             arrow = new arrow(ball.x,ball.y,mousePosX,mousePosY,arrowGr,ball.id);
             arrowGr.setVisible(false);
-
-
+            SetTouchSwap(Touchable.disabled);
         }
     }
     public void setBallColor(){
@@ -168,7 +169,7 @@ public class board {
             int type=Config.typeChangeColor;
             Config.typeChangeColor=0;
             ball.destroy();
-            ball = new ball(Gun.getX()+Gun.getWidth()/2,Gun.getY()+Gun.getHeight()/2,type,this);
+            ball = new ball(sole.getX()+sole.getWidth()/2,sole.getY()+sole.getHeight()*0.4f,type,this);
             arrowGr.clear();
             arrow = new arrow(ball.x,ball.y,mousePosX,mousePosY,arrowGr,ball.id);
             arrowGr.setVisible(false);
@@ -181,12 +182,12 @@ public class board {
         {
             ballNext.gr.addAction(Actions.sequence(
                     Actions.parallel(
-                            Actions.moveTo(Gun.getX()+Gun.getWidth()/2-Config.BALL_RADIUS/2,Gun.getY()+Config.BALL_RADIUS,Config.Dr_Ball_Cre),
+                            Actions.moveTo(sole.getX()+sole.getWidth()/2-Config.BALL_RADIUS/2,sole.getY()+Config.BALL_RADIUS,Config.Dr_Ball_Cre),
                             Actions.scaleTo(1,1,Config.Dr_Ball_Cre)
                     ),
                     GSimpleAction.simpleAction((d,a)->{
                         ballNext.destroy();
-                        int type = (int)(Math.random()*5)+1;
+                        int type = (int)(Math.random()*Config.ballType)+1;
 //                        int type = 6;
                         //////// skills Color////////
                         countSkillColor++;
@@ -204,7 +205,7 @@ public class board {
                             Config.timeSkillBomb+=Config.pecentSkillBomb;
                             countSkillBomb=0;
                         }
-                        ballNext = new ball(Gun.getX()-80,Gun.getY()+Gun.getHeight()*0.6f,type,this);
+                        ballNext = new ball(sole.getX()-80,sole.getY()+sole.getHeight()*0.6f,type,this);
                         ballNext.Scale(0.7f);
                         CreateBallPlay();
 //                        setBallColor();
@@ -213,10 +214,10 @@ public class board {
                     })
             ));
         }else {
-            typeBallNext = (int)(Math.random()*5)+1;
+            typeBallNext = (int)(Math.random()*Config.ballType)+1;
 
 //            typeBallNext = 6;
-            ballNext = new ball(Gun.getX()-80,Gun.getY()+Gun.getHeight()*0.6f,typeBallNext,this);
+            ballNext = new ball(sole.getX()-80,sole.getY()+sole.getHeight()*0.6f,typeBallNext,this);
             ballNext.Scale(0.7f);
 
         }
@@ -232,6 +233,10 @@ public class board {
                 mousePosY=y;
                 arrowGr.setVisible(true);
                 arrow.SetArrow(ball.x,ball.y,x,y);
+                deg = (float) Math.atan2(ball.y-y,x-ball.x);
+                Gun.setRotation(-(float)(Math.toDegrees(deg)-90));
+//                ball.gr.setRotation(-(float)(Math.toDegrees(deg)-90));
+
                 return super.mouseMoved(event, x, y);
             }
 
@@ -269,6 +274,10 @@ public class board {
                 super.touchUp(event, x, y, pointer, button);
                 if(ball.id==Config.FireBall)
                     SoundEffect.Play(SoundEffect.fireFly);
+                if(ball.id==Config.ChangeColor)
+                    SoundEffect.Play(SoundEffect.ChangeColor);
+                if(ball.id==Config.Bomb)
+                    SoundEffect.Play(SoundEffect.Bomb);
                 SoundEffect.Play(SoundEffect.shot);
                 setTouch(Touchable.disabled);
                 runtime=false;
@@ -405,8 +414,8 @@ public class board {
                         runtime=true;
                         return;
                     }else if(checkColision(ballMove,grid.arrGridBall.get(i).get(j))==2){
-                        grid.arrGridBall.get(i).get(j).destroy();
-                        grid.arrGridBall.get(i).set(j,null);
+                            grid.arrGridBall.get(i).get(j).destroy(1);
+                            grid.arrGridBall.get(i).set(j,null);
                     }else if(checkColision(ballMove,grid.arrGridBall.get(i).get(j))==3){
                        // System.out.println("here!!!!!!!!!!");
 //                        setTouch(Touchable.enabled);
@@ -465,6 +474,7 @@ public class board {
     }
     private void createFireBall(){
         Image img = GUI.createImage(TextureAtlasC.Boardgame,"fireball");
+        img.setScale(0.7f);
         img.setOrigin(Align.center);
         img.setRotation(180);
         img.setPosition(0,0,Align.center);

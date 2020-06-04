@@ -38,7 +38,7 @@ public class GameScene extends GScreen {
         initGroup();
         renderBg();
         header = new header();
-        new board(MainGroup,header);
+        new board(MainGroup,header,this);
 //        if(Config.checkConnet){
 //            UpdateViewPort();
 //            GMain.platform.ShowBanner(true);

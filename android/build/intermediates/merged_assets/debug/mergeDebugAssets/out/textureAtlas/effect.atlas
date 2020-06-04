@@ -1,40 +1,82 @@
 
 effect.png
-size: 512,64
+size: 1024,256
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
+NPC_DDlongA_skillEF
+  rotate: false
+  xy: 392, 124
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+PC_un_01
+  rotate: false
+  xy: 262, 124
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+PC_un_04_2
+  rotate: false
+  xy: 2, 124
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+PC_un_04_4
+  rotate: false
+  xy: 132, 124
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+SL_ChuanS_00_01
+  rotate: false
+  xy: 522, 124
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+SL_XiangZ_01_03
+  rotate: false
+  xy: 2, 58
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
 ef1
   rotate: false
-  xy: 2, 2
+  xy: 652, 198
   size: 54, 54
   orig: 54, 54
   offset: 0, 0
   index: -1
 ef2
   rotate: false
-  xy: 58, 2
+  xy: 2, 2
   size: 54, 54
   orig: 54, 54
   offset: 0, 0
   index: -1
 ef3
   rotate: false
-  xy: 114, 2
+  xy: 68, 68
   size: 54, 54
   orig: 54, 54
   offset: 0, 0
   index: -1
 ef4
   rotate: false
-  xy: 170, 2
+  xy: 652, 142
   size: 54, 54
   orig: 54, 54
   offset: 0, 0
   index: -1
 ef5
   rotate: false
-  xy: 226, 2
+  xy: 708, 198
   size: 54, 54
   orig: 54, 54
   offset: 0, 0
