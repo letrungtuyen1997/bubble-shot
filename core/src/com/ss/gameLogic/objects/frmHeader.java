@@ -18,13 +18,15 @@ import com.ss.core.util.GLayer;
 import com.ss.core.util.GStage;
 import com.ss.core.util.GUI;
 import com.ss.effects.SoundEffect;
+import com.ss.gameLogic.config.C;
+import com.ss.gameLogic.config.Config;
 
 public class frmHeader {
     private Group gr = new Group();
     public int lv = GMain.prefs.getInteger("level",1);
     public long expMoment= GMain.prefs.getLong("ExpMoment");
     public long expTarget=GMain.prefs.getLong("ExpTarget",100);
-    public long Monney=GMain.prefs.getLong("Monney",0);
+    public long Monney= Config.monney;
     private Image frmExp;
     public Array <Label> arrLb = new Array<>();
     public Array <Image> arrIc = new Array<>();
@@ -69,9 +71,19 @@ public class frmHeader {
     public  void updateMonney(Long Bonus){
 
         if(arrLb.get(1)!=null){
-            arrLb.get(1).setText(""+(Monney+Bonus));
+            Config.monney=(Monney+Bonus);
+            arrLb.get(1).setText(""+Config.monney);
         }
         GMain.prefs.putLong("Monney", (Monney+Bonus));
+        GMain.prefs.flush();
+    }
+    public  void updateMonney2(Long Monney){
+
+        Config.monney-=Monney;
+        if(arrLb.get(1)!=null){
+            arrLb.get(1).setText(""+Config.monney);
+        }
+        GMain.prefs.putLong("Monney", Config.monney);
         GMain.prefs.flush();
     }
     public void updateLvSc(Long Bonus){
@@ -164,20 +176,66 @@ public class frmHeader {
         panel.setPosition(frm.getX()+frm.getWidth()/2,frm.getY()+panel.getHeight()/4,Align.center);
         gr.addActor(panel);
         /////// label ////////
-        Image lbSattus = GUI.createImage(TextureAtlasC.GameOver,"levelupEn");
+        String text = "levelupVn";
+        if(C.lang.idcontry.equals("En"))
+            text = "levelupVn";
+        Image lbSattus = GUI.createImage(TextureAtlasC.GameOver,text);
         lbSattus.setOrigin(Align.center);
         lbSattus.setPosition(panel.getX()+panel.getWidth()/2,panel.getY()+lbSattus.getHeight()*0.8f,Align.center);
         gr.addActor(lbSattus);
+        /////// label bonus score ///////
+        Label lbBonus = new Label(C.lang.scoreBonus,new Label.LabelStyle(BitmapFontC.Font_White,null));
+        lbBonus.setFontScale(0.8f);
+        lbBonus.setAlignment(Align.center);
+        lbBonus.setOrigin(Align.center);
+        lbBonus.setPosition(0,frm.getY()+frm.getHeight()*0.75f,Align.center);
+        gr.addActor(lbBonus);
+        /////// label bonus score ///////
+        Label lbBonus2 = new Label("+"+lv+"%",new Label.LabelStyle(BitmapFontC.timeFont,null));
+        lbBonus2.setFontScale(0.6f);
+        lbBonus2.setAlignment(Align.center);
+        lbBonus2.setOrigin(Align.center);
+        lbBonus2.setPosition(0,frm.getY()+frm.getHeight()*0.87f,Align.center);
+        gr.addActor(lbBonus2);
+        /////// btn red //////
+        Group grbtn = new Group();
+        gr.addActor(grbtn);
+        btn(grbtn,0,frm.getY()+frm.getHeight()*1.2f,"btnRed",C.lang.lbBtnRed);
+        eventBtnRed(grbtn,gr);
         gr.setPosition(GStage.getWorldWidth()/2,GStage.getWorldHeight()/2,Align.center);
         gr.setScale(0);
         gr.addAction(Actions.sequence(
                 Actions.scaleTo(1,1,0.5f, Interpolation.swingOut),
                 GSimpleAction.simpleAction((d,a)->{
-
+                    SoundEffect.Play(SoundEffect.levelup);
                     return true;
                 })
         ));
-
+    }
+    private void btn(Group grbtn,float x,float y,String type,String lb){
+        Image btn = GUI.createImage(TextureAtlasC.GameOver,type);
+        btn.setPosition(0,0);
+        grbtn.addActor(btn);
+        Label lbbtn = new Label(lb,new Label.LabelStyle(BitmapFontC.FontAlert,null));
+        lbbtn.setFontScale(0.7f);
+        lbbtn.setOrigin(Align.center);
+        lbbtn.setAlignment(Align.center);
+        lbbtn.setPosition(btn.getX()+btn.getWidth()/2,btn.getY()+btn.getHeight()/2,Align.center);
+        grbtn.addActor(lbbtn);
+        grbtn.setWidth(btn.getWidth());
+        grbtn.setHeight(btn.getHeight());
+        grbtn.setOrigin(Align.center);
+        grbtn.setPosition(x,y,Align.center);
+    }
+    private void eventBtnRed(Group gr,Group parent){
+        gr.addListener(new ClickListener(){
+            @Override
+            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+                super.touchUp(event, x, y, pointer, button);
+                parent.clear();
+                parent.remove();
+            }
+        });
     }
 
 

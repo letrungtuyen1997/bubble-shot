@@ -1,83 +1,139 @@
 
 effect.png
-size: 1024,256
+size: 1024,1024
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
+EFF_GBox_Down01
+  rotate: false
+  xy: 2, 472
+  size: 512, 512
+  orig: 512, 512
+  offset: 0, 0
+  index: -1
+EFF_GBox_Down02
+  rotate: false
+  xy: 276, 342
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+Gem_Un_01_04
+  rotate: false
+  xy: 2, 198
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+ITEM_Sp_04_Howl_2
+  rotate: false
+  xy: 516, 856
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+NPC_Burn
+  rotate: false
+  xy: 516, 596
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
 NPC_DDlongA_skillEF
   rotate: false
-  xy: 392, 124
+  xy: 646, 726
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 PC_un_01
   rotate: false
-  xy: 262, 124
+  xy: 2, 68
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
+PC_un_04_1
+  rotate: false
+  xy: 2, 328
+  size: 142, 142
+  orig: 142, 142
+  offset: 0, 0
+  index: -1
 PC_un_04_2
   rotate: false
-  xy: 2, 124
+  xy: 146, 342
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+PC_un_04_3
+  rotate: false
+  xy: 516, 726
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 PC_un_04_4
   rotate: false
-  xy: 132, 124
+  xy: 646, 856
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 SL_ChuanS_00_01
   rotate: false
-  xy: 522, 124
+  xy: 776, 856
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 SL_XiangZ_01_03
   rotate: false
-  xy: 2, 58
+  xy: 2, 2
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 ef1
   rotate: false
-  xy: 652, 198
+  xy: 406, 416
   size: 54, 54
   orig: 54, 54
   offset: 0, 0
   index: -1
 ef2
   rotate: false
-  xy: 2, 2
+  xy: 646, 670
   size: 54, 54
   orig: 54, 54
   offset: 0, 0
   index: -1
 ef3
   rotate: false
-  xy: 68, 68
+  xy: 776, 800
   size: 54, 54
   orig: 54, 54
   offset: 0, 0
   index: -1
 ef4
   rotate: false
-  xy: 652, 142
+  xy: 906, 930
   size: 54, 54
   orig: 54, 54
   offset: 0, 0
   index: -1
 ef5
   rotate: false
-  xy: 708, 198
+  xy: 68, 12
   size: 54, 54
   orig: 54, 54
+  offset: 0, 0
+  index: -1
+star
+  rotate: false
+  xy: 516, 475
+  size: 115, 119
+  orig: 115, 119
   offset: 0, 0
   index: -1

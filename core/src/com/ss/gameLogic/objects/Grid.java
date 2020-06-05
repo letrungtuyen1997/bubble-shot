@@ -825,6 +825,7 @@ public class Grid {
         }
     }
     private void GameOver(String type) {
+        SoundEffect.Play(SoundEffect.gameover);
         ismoveGrid = true;
         this.board.setTouch(Touchable.disabled);
         Group gr = new Group();

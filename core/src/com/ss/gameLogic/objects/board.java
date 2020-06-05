@@ -290,7 +290,6 @@ public class board {
                 ballMove = ball;
                 checkRuntime();
                 CreateBallNext();
-
 //                checkCreateBall();
 
             }
@@ -476,16 +475,16 @@ public class board {
         Image img = GUI.createImage(TextureAtlasC.Boardgame,"fireball");
         img.setScale(0.7f);
         img.setOrigin(Align.center);
-        img.setRotation(180);
         img.setPosition(0,0,Align.center);
         grFireBall.addActor(img);
         grFireBall.setVisible(false);
     }
     private void AniFireBall(Group gr){
+        gr.setRotation(-180);
         gr.setVisible(true);
         gr.setPosition(GStage.getWorldWidth()/2,GStage.getWorldHeight()-250,Align.center);
         gr.addAction(Actions.sequence(
-                Actions.rotateTo(180,0.2f),
+                Actions.rotateTo(0,0.2f),
                 Actions.moveBy(0,-200,1f,Interpolation.swingIn),
                 GSimpleAction.simpleAction((d,a)->{
                     gr.setVisible(false);
@@ -493,6 +492,4 @@ public class board {
                 })
         ));
     }
-
-
 }

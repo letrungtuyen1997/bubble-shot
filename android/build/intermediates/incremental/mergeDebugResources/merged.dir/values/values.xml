@@ -267,7 +267,7 @@
     <integer name="google_play_services_version">12451000</integer>
     <integer name="status_bar_notification_info_maxnum">999</integer>
     <string name="app_name">Bubble Shot</string>
-    <string name="com.crashlytics.android.build_id" ns1:ignore="UnusedResources,TypographyDashes" translatable="false">9e6e5d40-722e-4d6c-96f3-54904e55bc27</string>
+    <string name="com.crashlytics.android.build_id" ns1:ignore="UnusedResources,TypographyDashes" translatable="false">e9607bb2-bf05-431c-a2c5-119483942ca8</string>
     <string msgid="2523291102206661146" name="common_google_play_services_enable_button">Enable</string>
     <string msgid="227660514972886228" name="common_google_play_services_enable_text"><ns2:g id="app_name">%1$s</ns2:g> won\'t work unless you enable Google Play services.</string>
     <string msgid="5122002158466380389" name="common_google_play_services_enable_title">Enable Google Play services</string>

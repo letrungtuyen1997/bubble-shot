@@ -35,6 +35,9 @@ public class SoundEffect {
   public static int MonneyUp = 18;
   public static int Bomb = 19;
   public static int ChangeColor = 20;
+  public static int addTime = 21;
+  public static int levelup = 22;
+  public static int gameover = 23;
   private static Sound[] explode;
 
 
@@ -64,17 +67,10 @@ public class SoundEffect {
     commons[MonneyUp] = GAssetsManager.getSound("Coin.mp3");
     commons[Bomb] = GAssetsManager.getSound("Bomb.mp3");
     commons[ChangeColor] = GAssetsManager.getSound("ChangeColor.mp3");
+    commons[addTime] = GAssetsManager.getSound("UpTime.mp3");
+    commons[levelup] = GAssetsManager.getSound("levelup.mp3");
+    commons[gameover] = GAssetsManager.getSound("GameOver.mp3");
 
-//    commons[complete] = GAssetsManager.getSound("stageclear.mp3");
-//    commons[Good] = GAssetsManager.getSound("Good.mp3");
-//    commons[Great] = GAssetsManager.getSound("Great.mp3");
-//    commons[Lose] = GAssetsManager.getSound("gameOver2.mp3");
-//    commons[Bomb] = GAssetsManager.getSound("bomb.mp3");
-//    commons[Rocket] = GAssetsManager.getSound("rocket.mp3");
-//    commons[ChangeColor] = GAssetsManager.getSound("changColor.mp3");
-//    commons[Result] = GAssetsManager.getSound("result2.mp3");
-//    commons[Tick] = GAssetsManager.getSound("wheel_sound.mp3");
-//    commons[Unlock] = GAssetsManager.getSound("unlock.mp3");
 
 //
 
@@ -96,14 +92,6 @@ public class SoundEffect {
     if(!mute)
       explode[(level > 13) ? 13 : level].play();
   }
-
-//  public static void Play(int i) {
-//    if (!mute) {
-//      commons[i].play();
-//      commons[i].setVolume(i,0.5f);
-//
-//    }
-//  }
 
   public static void Playmusic(int mode) {
     music = false;

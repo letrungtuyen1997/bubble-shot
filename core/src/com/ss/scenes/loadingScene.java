@@ -50,15 +50,13 @@ public class loadingScene extends GScreen {
              } else {
                  TextureAtlasC.initAtlas();
 
-                 this.setScreen(new GameScene());
+                 this.setScreen(new StartScene());
                  System.out.println("chuyen");
              }
          }
 
     }
     void loading(){
-//        TextureAtlas loadding = GAssetsManager.getTextureAtlas("loadding.atlas");
-//        Image load = GUI.createImage(loadding,"loadding");
         Image bg = new Image(new Texture("textureAtlas/bgload.png"));
         bg.setSize(GStage.getWorldWidth(),GStage.getWorldHeight());
         bg.setScale(1,-1);

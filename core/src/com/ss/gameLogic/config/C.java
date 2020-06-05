@@ -21,6 +21,7 @@ public class C {
         private static I18NBundle locale;
         public static String title = "";
         public static String adsTimeLbl = "";
+        public static String idcontry = "";
         public static String  gameover= "";
         public static String  timeup= "";
         public static String status = "";
@@ -33,6 +34,8 @@ public class C {
         public static String lbBtnRed = "";
         public static String lbAchiment = "";
         public static String lbComplete = "";
+        public static String scoreBonus= "";
+        public static String boostSkill= "";
 
 
 
@@ -68,6 +71,9 @@ public class C {
             lbBtnRed = locale.get("lbBtnRed");
             lbAchiment = locale.get("lbAchiment");
             lbComplete = locale.get("lbComplete");
+            idcontry = locale.get("idcontry");
+            scoreBonus = locale.get("scoreBonus");
+            boostSkill = locale.get("boostSkill");
         }
     }
 

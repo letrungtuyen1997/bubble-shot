@@ -13,6 +13,7 @@ public class BitmapFontC {
   public static BitmapFont Font_Yellow;
   public static BitmapFont FontRed;
   public static BitmapFont Font_White;
+  public static BitmapFont Font_Brown;
 
   public static void initBitmapFont(){
     timeFont = GAssetsManager.getBitmapFont("font_Time.fnt");
@@ -24,5 +25,6 @@ public class BitmapFontC {
     Font_Yellow = GAssetsManager.getBitmapFont("font_Yellow.fnt");
     FontRed = GAssetsManager.getBitmapFont("font_Red.fnt");
     Font_White =  GAssetsManager.getBitmapFont("font_White.fnt");
+    Font_Brown = GAssetsManager.getBitmapFont("font_brown.fnt");
   }
 }

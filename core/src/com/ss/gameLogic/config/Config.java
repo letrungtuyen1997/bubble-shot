@@ -1,6 +1,7 @@
 package com.ss.gameLogic.config;
 
 import com.badlogic.gdx.utils.Json;
+import com.ss.GMain;
 import com.ss.core.util.GStage;
 import com.ss.gameLogic.objects.LoadLv;
 
@@ -54,6 +55,7 @@ public class Config {
     public static int BonusTime=5;
     public static float ballApear = -ROW_HEGHT*5;
     public static int ballType=1;
+    public static long monney = GMain.prefs.getLong("Monney",0);;
 
     public static LoadLv LoadLv(int id){
         LoadLv info ;

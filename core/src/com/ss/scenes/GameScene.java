@@ -3,22 +3,16 @@ package com.ss.scenes;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Net;
 import com.badlogic.gdx.scenes.scene2d.Group;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.ss.GMain;
 import com.ss.commons.TextureAtlasC;
 import com.ss.core.util.GLayer;
 import com.ss.core.util.GScreen;
 import com.ss.core.util.GStage;
 import com.ss.core.util.GUI;
-import com.ss.effects.effectWin;
 import com.ss.gameLogic.config.Config;
 import com.ss.gameLogic.objects.board;
 import com.ss.gameLogic.objects.header;
 
-import java.util.ArrayList;
 
 public class GameScene extends GScreen {
     public Group MainGroup = new Group();

@@ -15,6 +15,7 @@ import com.ss.core.exSprite.GShapeSprite;
 import com.ss.core.util.GLayer;
 import com.ss.core.util.GStage;
 import com.ss.core.util.GUI;
+import com.ss.effects.SoundEffect;
 import com.ss.effects.effectWin;
 import com.ss.gameLogic.config.Config;
 
@@ -105,6 +106,7 @@ public class BallGrid {
         }
     }
     private void updatetime(){
+        SoundEffect.Play(SoundEffect.addTime);
         ball.clear();
         ball.remove();
         this.header.updateTime();

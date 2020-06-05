@@ -25,7 +25,6 @@ public class Mission {
     private  Table tableScroll;
     private Image frm;
 
-
     Mission(){
         GStage.addToLayer(GLayer.top,group);
         WhiteOverLay.createRectangle(true,-GStage.getWorldWidth()/2,-GStage.getWorldHeight()/2,GStage.getWorldWidth(),GStage.getWorldHeight());
