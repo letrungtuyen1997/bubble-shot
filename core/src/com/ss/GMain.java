@@ -1,28 +1,16 @@
 package com.ss;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.scenes.scene2d.Group;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.platform.IPlatform;
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.ss.commons.BitmapFontC;
-import com.ss.commons.TextureAtlasC;
+import com.platform.IPlatform;
 import com.ss.core.exSprite.particle.GParticleSystem;
-import com.ss.core.util.GAssetsManager;
 import com.ss.core.util.GDirectedGame;
-import com.ss.core.util.GLayer;
 import com.ss.core.util.GScreen;
 import com.ss.core.util.GStage;
 import com.ss.core.util.GStage.StageBorder;
-import com.ss.effects.SoundEffect;
 import com.ss.gameLogic.config.C;
-import com.ss.scenes.GameOverScene;
-import com.ss.scenes.GameScene;
 import com.ss.scenes.loadingScene;
 
 public class GMain extends GDirectedGame {
@@ -114,7 +102,9 @@ public class GMain extends GDirectedGame {
 
   private void initPrefs(){
     prefs = Gdx.app.getPreferences("My Preferences");
-//    prefs.clear();
+//    prefs.putLong("Monney",100000);
+//    prefs.flush();
+   // prefs.clear();
 //    prefs.flush();
   }
 
@@ -125,8 +115,8 @@ public class GMain extends GDirectedGame {
     super.dispose();
   }
   private void initLocalNotification(){
-    platform.SetDailyNotification(1, "PopKite", "Bạn ơi chạm để quay lại vượt thử thách nào!!", 1, 19);
-    platform.SetDailyNotification(3, "PopKite", "mèo nhớ bạn!!", 3, 19);
+    platform.SetDailyNotification(1, "BubbleShot", "Bạn ơi chạm để quay lại vượt thử thách nào!!", 1, 19);
+    platform.SetDailyNotification(3, "BubbleShot", "Cáo nhớ bạn!!", 3, 19);
     //platform.SetDailyNotification(7, "Lieng 2020", "Bam vao nhan duoc bao nhieu tien", 7, 18);
     int noId = platform.GetNotifyId();
     if(noId==-1){

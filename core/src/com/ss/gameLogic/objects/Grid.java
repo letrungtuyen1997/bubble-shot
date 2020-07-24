@@ -1,7 +1,6 @@
 package com.ss.gameLogic.objects;
 
 import com.badlogic.gdx.math.Interpolation;
-import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
@@ -9,12 +8,14 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
+import com.ss.GMain;
 import com.ss.commons.BitmapFontC;
 import com.ss.commons.TextureAtlasC;
 import com.ss.commons.Tweens;
 import com.ss.core.action.exAction.GSimpleAction;
 import com.ss.core.exSprite.GShapeSprite;
 import com.ss.core.util.GLayer;
+import com.ss.core.util.GLayerGroup;
 import com.ss.core.util.GStage;
 import com.ss.core.util.GUI;
 import com.ss.effects.SoundEffect;
@@ -27,7 +28,7 @@ import com.ss.scenes.GameScene;
 public class Grid {
     public float x,y;
     private final GShapeSprite LineGrid = new GShapeSprite();
-    public Group grGrid = new Group();
+    public GLayerGroup grGrid = new GLayerGroup();
     public Group grParticle = new Group();
 //    private  int row=0;
     private int quantity = Config.quantityBall;
@@ -41,7 +42,6 @@ public class Grid {
     private boolean ismoveGrid=false;
     private int countRowTop=0;
     private int level=0;
-    private int exploxe=0;
     private long ScoreBall=0;
     private long ScoreBallDrop=0;
     private Label lbDrop, lbCombo;
@@ -59,8 +59,10 @@ public class Grid {
     private int conntBomb = 0;
     private GameScene gameScene;
     private boolean checkRepeat = false;
+    private int timeClock=Config.timeSkillClock;
 
     Grid(header header, board board, GameScene gameScene){
+//        System.out.println("count time clock:"+timeClock);
         this.header = header;
         this.board = board;
         this.gameScene = gameScene;
@@ -91,13 +93,13 @@ public class Grid {
 
         LineGrid.createLine(0,Config.ballApear+Config.BALL_RADIUS, GStage.getWidth(),Config.ballApear+Config.BALL_RADIUS);
 //        LineGrid.setY(-Config.ROW_HEGHT*5+Config.BALL_RADIUS);
-        LineGrid.setColor(1,0,1,1f);
+        LineGrid.setColor(1,0,1,0f);
         grGrid.addActor(LineGrid);
     }
     private void moveGrid(){
         grGrid.addAction(
-                GSimpleAction.simpleAction((d,a)->{
-                    if(LineGrid.getY()<GStage.getWorldHeight()*0.6f-Config.ballApear){
+                GSimpleAction.simpleAction((d, a)->{
+                    if(LineGrid.getY()< GStage.getWorldHeight()*0.6f-Config.ballApear){
                         Config.GridMove=Config.SpeedGrid;
                     }else
                         Config.GridMove=0.1f;
@@ -186,8 +188,8 @@ public class Grid {
 //                System.out.println("ve: "+arrlv[i]);
                 int type = (int)(Math.random()*Config.ballType)+1;
                 boolean time=false;
-                if(countClock==Config.timeSkillClock){
-                    Config.timeSkillClock+=Config.pecentSkillClock;
+                if(countClock==timeClock){
+                    timeClock+=Config.pecentSkillClock;
                     countClock=0;
                     time=true;
                 }
@@ -201,7 +203,7 @@ public class Grid {
 //        setPosBallGrid(0.5f);
     }
     private boolean checkGameOver(){
-        if(LineGrid.getY()>GStage.getWorldHeight()-Config.ROW_HEGHT-Config.ballApear)
+        if(LineGrid.getY()> GStage.getWorldHeight()-Config.ROW_HEGHT-Config.ballApear)
             return true;
         return false;
     }
@@ -236,7 +238,7 @@ public class Grid {
         }
 
     }
-    public void addNewRow(int col,int type,BallGrid ball, boolean rowShift){
+    public void addNewRow(int col,int type,BallGrid ball, boolean rowShift,float deg){
         arrBallSame.clear();
         BallGrid ballGrid = null;
         int row = 0;
@@ -246,7 +248,7 @@ public class Grid {
             col-=1;
         }
         float paddingX = 0;
-        float paddingY = ball.y+Config.BALL_RADIUS+Config.ROW_HEGHT;
+        float paddingY = ball.gr.getY()+Config.BALL_RADIUS+Config.ROW_HEGHT;
         float LineYUp=0;
 //        System.out.println("checkkkkkkkkkkk: "+rowShift);
         if(rowShift)
@@ -271,11 +273,11 @@ public class Grid {
         }
         arrGridBall.insert(0,NewrowBalls);
         BallAround(arrGridBall,ballGrid,ballGrid.row,ballGrid.col);
-        detroyBall(ballGrid);
+        detroyBall(ballGrid,deg);
         updateLineGrid(LineYUp);
 //        System.out.println("size max: "+arrGridBall.size);
     }
-    public void addBallLeftRight(int row,int col,int type,BallGrid ball, boolean rowShift){
+    public void addBallLeftRight(int row,int col,int type,BallGrid ball, boolean rowShift,float deg){
         arrBallSame.clear();
         if(col<=0)
             col=0;
@@ -283,17 +285,17 @@ public class Grid {
             col-=1;
         }
         float paddingX = 0;
-        float paddingY = ball.y+Config.BALL_RADIUS+Config.ROW_HEGHT;
+        float paddingY = ball.gr.getY()+Config.BALL_RADIUS+Config.ROW_HEGHT;
         if(rowShift)
             paddingX=Config.BALL_W/2;
         BallGrid ballGrid = new BallGrid(type,row,col,grGrid,this,paddingX,quantity,paddingY,rowShift,false,header);
         arrGridBall.get(row).set(col,ballGrid);
         BallAround(arrGridBall,ballGrid,ballGrid.row,ballGrid.col);
-        detroyBall(ballGrid);
+        detroyBall(ballGrid,deg);
 
 
     }
-    public void addBallHorizontal(int row,int col,int type,BallGrid ball, boolean rowShift){
+    public void addBallHorizontal(int row,int col,int type,BallGrid ball, boolean rowShift,float deg){
         arrBallSame.clear();
         if(col<=0)
             col=0;
@@ -301,47 +303,59 @@ public class Grid {
             col-=1;
         }
         float paddingX = 0;
-        float paddingY = ball.y+Config.BALL_RADIUS;
+        float paddingY = ball.gr.getY()+Config.BALL_RADIUS;
         if(rowShift)
             paddingX=Config.BALL_W/2;
         BallGrid ballGrid = new BallGrid(type,row,col,grGrid,this,paddingX,quantity,paddingY,rowShift,false,header);
         arrGridBall.get(row).set(col,ballGrid);
         BallAround(arrGridBall,ballGrid,ballGrid.row,ballGrid.col);
-        detroyBall(ballGrid);
+        detroyBall(ballGrid,deg);
 
 
     }
     public effectWin ef(){
         effectWin efs=null;
-        for (effectWin e: arrEffect)
-            if(e.isAlive==false)
+        for (effectWin e: arrEffect){
+            if(e.isAlive==false){
                 efs = e;
-            return efs;
+                break;
+                //return efs;
+            }
+
+        }
+        return efs;
+
     }
     public effectWin efFireBall(){
         effectWin efs=null;
-        for (effectWin e: arrEffectFireBall)
-            if(e.isAlive==false)
+        for (effectWin e: arrEffectFireBall){
+            if(e.isAlive==false){
                 efs = e;
+                break;
+               // return efs;
+            }
+
+        }
         return efs;
     }
     public effectWin efBomb(){
         effectWin efs=null;
-        for (effectWin e: arrEffectBomb)
-            if(e.isAlive==false)
+        for (effectWin e: arrEffectBomb){
+            if(e.isAlive==false){
                 efs = e;
+                break;
+               // return efs;
+            }
+
+        }
         return efs;
     }
-    private void detroyBall(BallGrid ballGrid){
-        exploxe=0;
-//        if(this.board.checkFireBall==true){
-//            Config.combo++;
-//            Combo();
-//        }
+    private void detroyBall(BallGrid ballGrid,float deg){
         if(arrBallSame.size>2){
             ShotBig(arrBallSame.size,ballGrid.gr.getX(),ballGrid.gr.getY());
             SoundEffect.Play(SoundEffect.corect);
             Config.combo++;
+
             int exploxeSound=Config.combo-1;
             if(Config.combo>=10){
                 exploxeSound=9;
@@ -353,7 +367,11 @@ public class Grid {
             for (BallGrid p :arrBallSame){
                 if(p.gr.getY()>0){
                     arrGridBall.get(p.row).set(p.col,null);
-                    p.destroy(0);
+                    Tweens.setTimeout(grParticle,(0.1f/arrBallSame.size)*arrBallSame.indexOf(p,true),()->{
+//                    Tweens.setTimeout(grGrid,0.03f*arrBallSame.indexOf(p,true),()->{
+                        p.destroy(0);
+//                    });
+                    });
                 }
             }
                 DropBall();
@@ -364,7 +382,7 @@ public class Grid {
             Config.combo=0;
             grCombo.addAction(Actions.sequence(
                     Actions.scaleTo(0,1,0.2f,Interpolation.swingIn),
-                    GSimpleAction.simpleAction((d,a)->{
+                    GSimpleAction.simpleAction((d, a)->{
                         grCombo.clear();
                         grCombo.setScale(1);
                         return true;
@@ -372,13 +390,10 @@ public class Grid {
             ));
             //grCombo.remove();
             arrBallother.clear();
-          //  System.out.println("rung rung");
-            try {
-                findClusters2(arrGridBall,ballGrid,ballGrid.row,ballGrid.col);
-                bounceGrid(ballGrid);
-            }catch (Exception e){
+            findClusters2(arrGridBall,ballGrid,ballGrid.row,ballGrid.col);
+//            System.out.println("rung rung :"+arrBallother.size);
 
-            }
+            bounceGrid(ballGrid,deg);
 
         }
         SetarrGridBall();
@@ -392,8 +407,8 @@ public class Grid {
         SetarrGridBall();
         Combo();
 
-        System.out.println("ballDrop!!!!!: "+arrDropBall.size);
-        System.out.println("ballDrop2!!!!!: "+arrDropBall2.size);
+//        System.out.println("ballDrop!!!!!: "+arrDropBall.size);
+//        System.out.println("ballDrop2!!!!!: "+arrDropBall2.size);
     }
     public void findClusters(Array<Array<BallGrid>> input, BallGrid ball,int row, int col){
         if (row < 0 || row >= input.size || col < 0 || col >= input.get(row).size)
@@ -426,7 +441,7 @@ public class Grid {
         for (int i=arrGridBall.size-1;i>=0;i--){
             for (int j=0;j<arrGridBall.get(i).size;j++){
                 if(arrGridBall.get(i).get(j)!=null){
-                    System.out.println("here: "+arrGridBall.get(i).get(j).id);
+//                    System.out.println("here: "+arrGridBall.get(i).get(j).id);
                     findClusters(arrGridBall,arrGridBall.get(i).get(j),arrGridBall.get(i).get(j).row,arrGridBall.get(i).get(j).col);
                     return;
                 }
@@ -488,39 +503,77 @@ public class Grid {
             p.moveBall(Config.Speed_Drop);
         }
     }
-    public void bounceGrid(BallGrid ball){
+    public void bounceGrid(BallGrid ball,float deg){
+//        System.out.println("log: "+ball.row+"---"+ball.col+"---rowShift:"+ball.rowShift);
 
-        float x=0,y=0;
-        float x2=Config.vibrate,y2=Config.vibrate;
-//        float y=5;
-        ball.Bounce(x2,y2);
-        for (BallGrid p : arrBallother ){
-            if(p.row<ball.row)
-                y=y2*-1;
-            if(p.row==ball.row)
-                y=0;
-            if(p.row>ball.row)
-                y=y2;
-            if(p.col>ball.col)
-                x=x2;
-            if(p.col<ball.col)
-                x=x2;
-            if(p.col==ball.col)
-                x=0;
-            if(p.row<ball.row)
-                y=y2*(-1);
-            if(y>0)
-                y2-=Config.vibrateDesc;
-            if(x>0)
-                x2-=Config.vibrateDesc;
-            if(x<0)
-                x2+=Config.vibrateDesc;
-            x2=Math.abs(x2);
-            y2=Math.abs(y2);
-            float finalY = y;
-            float finalX = x;
-                p.Bounce(finalX, finalY);
+        ///////////// bounce /////////
+        if(deg<85&&deg>5){
+            ball.Bounce(5,-5);
+        }else
+        if(deg>85&&deg<175){
+            ball.Bounce(-5,-5);
+        }else
+        if(deg<5&&deg>-5){
+            ball.Bounce(5,0);
+        }else
+        if(deg<-5&&deg>-85){
+            ball.Bounce(5,5);
+        }else
+        if(deg<-85&&deg>-175){
+            ball.Bounce(-5,5);
+        }else
+            ball.Bounce(-5,0);
+            for (int i=0;i<arrGridBall.size;i++) {
+                for (BallGrid p : arrGridBall.get(i)) {
+                    if (p != null) {
+                        float k = (float) Math.sqrt(Math.pow(Math.abs(ball.gr.getX()-p.gr.getX()),2)+Math.pow(Math.abs(ball.gr.getY()-p.gr.getY()),2));
+//                        if(k<Config.BALL_H*3){
+                            float per = (float) Config.BALL_H/k;
+//                            System.out.println("per: "+per);
+                            ///// th1/////
+                            if (ball.gr.getX() < p.gr.getX() && Math.abs(ball.gr.getY() - p.gr.getY())<5) {
+                                p.Bounce(Config.vibrate*per, 0);
+                            }
+                            ///// th2/////
+                            if (ball.gr.getX() > p.gr.getX() && Math.abs(ball.gr.getY() - p.gr.getY())<5) {
+                                p.Bounce(-Config.vibrate*per, 0);
+                            }
+                            ///// th3/////
+                            if (ball.gr.getX() > p.gr.getX() && ball.gr.getY() < p.gr.getY()) {
+                                p.Bounce(-Config.vibrate*per, Config.vibrate*per);
+                            }
+                            ///// th4/////
+                            if (ball.gr.getX() < p.gr.getX() && ball.gr.getY() < p.gr.getY()) {
+                                p.Bounce(Config.vibrate*per, Config.vibrate*per);
+                            }
+                            ///// th5/////
+                            if (ball.gr.getX() > p.gr.getX() && ball.gr.getY() > p.gr.getY()) {
+                                p.Bounce(-Config.vibrate*per, -Config.vibrate*per);
+                            }
+                            ///// th6/////
+                            if (ball.gr.getX() < p.gr.getX() && ball.gr.getY() > p.gr.getY()) {
+                                p.Bounce(Config.vibrate*per, -Config.vibrate*per);
+                            }
+                            ///// th7/////
+                            if (Math.abs(ball.gr.getX() - p.gr.getX())<5 && ball.gr.getY() > p.gr.getY()) {
+                                p.Bounce(0, -Config.vibrate*per);
+                            }
+                            ///// th8/////
+                            if (Math.abs(ball.gr.getX() - p.gr.getX())<5 && ball.gr.getY() < p.gr.getY()) {
+                                p.Bounce(0, Config.vibrate*per);
+                            }
+//                        }
+
+                    }
+                }
         }
+
+
+
+
+
+
+
     }
 
     public void findClusters2(Array<Array<BallGrid>> input, BallGrid ball,int row, int col){
@@ -542,12 +595,13 @@ public class Grid {
         }else {
             even=1;
         }
+        findClusters2(input,ball,row-1,col-even);
+        findClusters2(input,ball,row-1,col+odd);
         findClusters2(input,ball,row,col+1);
         findClusters2(input,ball,row,col-1);
-        findClusters2(input,ball,row+1,col-even);
-        findClusters2(input,ball,row-1,col+odd);
-        findClusters2(input,ball,row-1,col-even);
         findClusters2(input,ball,row+1,col+odd);
+        findClusters2(input,ball,row+1,col-even);
+
 
     }
     private void CountScore(int BallDead,float x, float y){
@@ -572,7 +626,7 @@ public class Grid {
         this.header.updateSc(Config.Score);
         gr.addAction(Actions.sequence(
                 Actions.moveBy(0,-5,0.8f),
-                GSimpleAction.simpleAction((d,a)->{
+                GSimpleAction.simpleAction((d, a)->{
                     gr.clear();
                     gr.remove();
                     return true;
@@ -601,7 +655,7 @@ public class Grid {
             gr.setPosition(x,y);
             gr.addAction(Actions.sequence(
                     Actions.moveBy(0,-5,1f),
-                    GSimpleAction.simpleAction((d,a)->{
+                    GSimpleAction.simpleAction((d, a)->{
                         checkLbDrop=false;
                         Config.Score+=ScoreBallDrop;
                         this.header.updateSc(Config.Score);
@@ -632,7 +686,7 @@ public class Grid {
             grCombo.addActor(frmCombo);
             grCombo.setSize(frmCombo.getWidth(),frmCombo.getHeight());
             grCombo.setOrigin(Align.center);
-            grCombo.setPosition(GStage.getWorldWidth()-frmCombo.getWidth()*0.7f,GStage.getWorldHeight()-frmCombo.getHeight()*0.7f,Align.center);
+            grCombo.setPosition(GStage.getWorldWidth()-frmCombo.getWidth()*0.7f, GStage.getWorldHeight()-frmCombo.getHeight()*1.5f,Align.center);
             ////// label combo ///////
             Label lb = new Label("combo",new Label.LabelStyle(BitmapFontC.FontGray,null));
             lb.setFontScale(0.6f);
@@ -645,7 +699,7 @@ public class Grid {
 
             frmCombo.addAction(Actions.sequence(
                     Actions.scaleTo(1,1,0.1f),
-                    GSimpleAction.simpleAction((d,a)->{
+                    GSimpleAction.simpleAction((d, a)->{
                         lbCombo = new Label(""+Config.combo,new Label.LabelStyle(BitmapFontC.FontScore,null));
                         lbCombo.setAlignment(Align.center);
                         lbCombo.setOrigin(Align.center);
@@ -661,8 +715,11 @@ public class Grid {
                         Actions.scaleBy(0.1f,0.1f,0.05f),
                         Actions.scaleBy(-0.1f,-0.1f,0.05f)
                 ));
+                ////// update combo Achivement////
+                updateAchivement("combo");
             }
         }
+
 
 
     }
@@ -670,17 +727,20 @@ public class Grid {
         if(quantity>=Config.Wow && quantity<Config.Crazy){
             SoundEffect.Play(SoundEffect.wow);
             bonusSc(x,y+100,Config.ScoreWow);
-            AniFireBall(GStage.getWorldWidth()/2,GStage.getWorldHeight()/2,grWow);
+            AniFireBall(GStage.getWorldWidth()/2, GStage.getWorldHeight()/2,grWow);
+            updateAchivement("wow");
         }
         if(quantity>=Config.Crazy && quantity<Config.Fabulous){
             SoundEffect.Play(SoundEffect.crazy);
             bonusSc(x,y+100,Config.ScoreCrazy);
-            AniFireBall(GStage.getWorldWidth()/2,GStage.getWorldHeight()/2,grCrazy);
+            AniFireBall(GStage.getWorldWidth()/2, GStage.getWorldHeight()/2,grCrazy);
+            updateAchivement("crazy");
         }
         if(quantity>=Config.Fabulous){
             SoundEffect.Play(SoundEffect.fabulous);
             bonusSc(x,y+100,Config.ScoreFabulous);
-            AniFireBall(GStage.getWorldWidth()/2,GStage.getWorldHeight()/2,grFabulous);
+            AniFireBall(GStage.getWorldWidth()/2, GStage.getWorldHeight()/2,grFabulous);
+            updateAchivement("fanbulous");
         }
     }
     private void createExpecial(String type,Group gr){
@@ -700,7 +760,7 @@ public class Grid {
         gr.addAction(Actions.sequence(
                 Actions.scaleTo(0.4f,0.4f,0.2f),
                 Actions.moveBy(0,-200,1f,Interpolation.swingIn),
-                GSimpleAction.simpleAction((d,a)->{
+                GSimpleAction.simpleAction((d, a)->{
                     gr.setVisible(false);
                     return true;
                 })
@@ -718,7 +778,7 @@ public class Grid {
         gr.setPosition(x,y);
         gr.addAction(Actions.sequence(
                 Actions.scaleTo(2.5f,2.5f,0.7f),
-                GSimpleAction.simpleAction((d,a)->{
+                GSimpleAction.simpleAction((d, a)->{
                     checkLbDrop=false;
                     Config.Score+=ScBonus;
                     this.header.updateSc(Config.Score);
@@ -799,16 +859,13 @@ public class Grid {
         }catch (Exception e){
 
         }
-
-//        this.board.checkBallBusy=true;
     }
+
     public void SkillBomb(BallGrid ball){
-//        SoundEffect.Play(SoundEffect.)
         arrBallBomb.clear();
         findClusters4(arrGridBall,ball,ball.row,ball.col);
         if(arrBallBomb.size!=0){
-            ShotBig(arrBallBomb.size,ball.gr.getX(),ball.gr.getY());
-            CountScore(arrBallSame.size,ball.gr.getX(),ball.gr.getY());
+
             for (BallGrid p :arrBallBomb){
                 if(p.gr.getY()>0){
                     conntBomb++;
@@ -818,8 +875,11 @@ public class Grid {
                     });
                 }
             }
+            ShotBig(conntBomb,ball.gr.getX(),ball.gr.getY());
+            CountScore(conntBomb,ball.gr.getX(),ball.gr.getY());
             Tweens.setTimeout(grGrid,0.01f*(conntBomb),()->{
                 DropBall();
+
             });
 
         }
@@ -830,6 +890,10 @@ public class Grid {
         this.board.setTouch(Touchable.disabled);
         Group gr = new Group();
         GStage.addToLayer(GLayer.top, gr);
+        GShapeSprite blackOverlap = new GShapeSprite();
+        blackOverlap.createRectangle(true,-GStage.getWorldWidth()/2,-GStage.getWorldHeight()/2, GStage.getWorldWidth(), GStage.getWorldHeight()*2);
+        blackOverlap.setColor(0,0,0,0.8f);
+        gr.addActor(blackOverlap);
         Label lb = new Label(type, new Label.LabelStyle(BitmapFontC.FontRed, null));
         lb.setPosition(0, 0, Align.center);
         gr.addActor(lb);
@@ -839,7 +903,8 @@ public class Grid {
         gr.addAction(Actions.sequence(
             Actions.moveBy(0, -GStage.getWorldHeight()*0.6f, 1.5f, Interpolation.swingIn),
             Actions.delay(1),
-            GSimpleAction.simpleAction((d,a)->{
+            GSimpleAction.simpleAction((d, a)->{
+                SoundEffect.Play(SoundEffect.panel_out);
                 this.gameScene.setScreen(new GameOverScene());
                 gr.clear();;
                 gr.remove();
@@ -848,6 +913,36 @@ public class Grid {
 
         ));
 
+    }
+    private void updateAchivement(String Type){
+        if(Type.equals("combo")){
+            if(Config.combo>Config.comboMoment){
+//                System.out.println("push combo: "+Config.combo);
+                GMain.prefs.putInteger("comboMM",Config.combo);
+                GMain.prefs.flush();
+                Config.comboMoment = GMain.prefs.getInteger("comboMM");
+            }
+
+        }else if(Type.equals("wow")){
+            Config.Wow++;
+            GMain.prefs.putInteger("comboMM",Config.wowMoment);
+            GMain.prefs.flush();
+
+        }else if(Type.equals("crazy")){
+            Config.crazyMoment++;
+            GMain.prefs.putInteger("crazyMM",Config.crazyMoment);
+            GMain.prefs.flush();
+
+        }else if(Type.equals("fanbulous")){
+            Config.fanbulousMoment++;
+            GMain.prefs.putInteger("fanblMM",Config.fanbulousMoment);
+            GMain.prefs.flush();
+
+        }
+
+    }
+    public void setPause(boolean set){
+        grGrid.setPause(set);
     }
 
 

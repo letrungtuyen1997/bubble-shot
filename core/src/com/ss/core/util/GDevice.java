@@ -2,8 +2,6 @@ package com.ss.core.util;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.ss.core.util.GScreen;
-import com.ss.core.util.GStage;
 
 public class GDevice {
    private static GDevice.GDeviceKeyListener deviceKey;

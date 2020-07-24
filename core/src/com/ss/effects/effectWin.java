@@ -1,22 +1,16 @@
 package com.ss.effects;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.files.FileHandle;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.ParticleEffectPool;
 import com.badlogic.gdx.graphics.g2d.ParticleEmitter;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.utils.Array;
-import com.ss.GMain;
 import com.ss.commons.TextureAtlasC;
-import com.ss.core.util.GAssetsManager;
 
 public class effectWin extends Actor{
 
@@ -24,6 +18,7 @@ public class effectWin extends Actor{
     FileHandle FireBall = Gdx.files.internal("effects/fireBall");
     FileHandle Bomb = Gdx.files.internal("effects/bomb");
     FileHandle star = Gdx.files.internal("effects/star");
+    FileHandle flyBubble = Gdx.files.internal("effects/flyBubble");
     public ParticleEffect effect;
     public ParticleEffectPool effectPool;
     public ParticleEffectPool.PooledEffect pooledEffect;
@@ -83,6 +78,16 @@ public class effectWin extends Actor{
                 }
 //                this.effect.getEmitters().get(0).getSprites().swap(0,(id2-1));
                 this.effect.scaleEffect(1.2f);
+
+            }else if(id==5){
+
+                this.effect.load(flyBubble, TextureAtlasC.effectAtlas);
+                for (int i = 0; i < this.effect.getEmitters().size; i++) {
+                    ((ParticleEmitter) this.effect.getEmitters().get(i)).flipY();
+                    ((ParticleEmitter) this.effect.getEmitters().get(i)).setFlip(true,false);
+                }
+//                this.effect.getEmitters().get(0).getSprites().swap(0,(id2-1));
+                this.effect.scaleEffect(2f);
 
             }
 
@@ -157,5 +162,10 @@ public class effectWin extends Actor{
         isAlive =true;
         this.group.addActor(this);
         this.effect.start();
+    }
+    public void stop() {
+        isAlive =false;
+//        this.group.addActor(this);
+        this.effect.reset();
     }
 }

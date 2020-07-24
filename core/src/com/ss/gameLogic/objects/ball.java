@@ -1,24 +1,18 @@
 package com.ss.gameLogic.objects;
 
 import com.badlogic.gdx.math.Circle;
-import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.Group;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import com.ss.commons.TextureAtlasC;
-import com.ss.commons.Tweens;
 import com.ss.core.action.exAction.GSimpleAction;
 import com.ss.core.exSprite.GShapeSprite;
 import com.ss.core.util.GLayer;
 import com.ss.core.util.GStage;
 import com.ss.core.util.GUI;
 import com.ss.effects.SoundEffect;
-import com.ss.effects.effectWin;
 import com.ss.gameLogic.config.Config;
 
 public class ball {
@@ -30,11 +24,11 @@ public class ball {
     public Circle body;
     public int id;
     public float deg=0;
-    private board board;
+    private com.ss.gameLogic.objects.board board;
     final GShapeSprite blackOverlay = new GShapeSprite();
     private boolean shark=false;
 
-    ball(float x,float y, int  id,board board){
+    ball(float x, float y, int  id, com.ss.gameLogic.objects.board board){
         this.x=x;
         this.y=y;
         this.id = id;
@@ -60,8 +54,8 @@ public class ball {
             aniRotate(ball);
     }
     public void moveBall(){
-        gr.addAction(GSimpleAction.simpleAction((d,a)->{
-            if(gr.getX()<=0 || gr.getX()+gr.getWidth()>=GStage.getWorldWidth()){
+        gr.addAction(GSimpleAction.simpleAction((d, a)->{
+            if(gr.getX()<=0 || gr.getX()+gr.getWidth()>= GStage.getWorldWidth()){
                 speedX=-speedX;
                 deg=-deg;
             }
@@ -109,7 +103,7 @@ public class ball {
                 Actions.moveBy(-3,3,0.05f),
                 Actions.moveBy(3,-3,0.05f),
                 Actions.moveBy(-3,3,0.05f),
-                GSimpleAction.simpleAction((d,a)->{
+                GSimpleAction.simpleAction((d, a)->{
                     if(shark==true)
                         return true;
                     shakScene();
@@ -120,7 +114,7 @@ public class ball {
     private void aniRotate(Image img){
         img.addAction(Actions.sequence(
                 Actions.rotateBy(360,0.5f),
-                GSimpleAction.simpleAction((d,a)->{
+                GSimpleAction.simpleAction((d, a)->{
                     aniRotate(img);
                     return true;
                 })

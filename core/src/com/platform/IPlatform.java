@@ -8,6 +8,10 @@ public interface IPlatform {
     public void ShowVideoReward(OnVideoRewardClosed callback);
     public void ShowFullscreen();
     public void ShowBanner(boolean visible);
+    public void Onshow();
+    public void ShareFb();
+    public void Resize();
+
 
     public int GetConfigIntValue(String name, int defaultValue);
     public String GetConfigStringValue(String name, String defaultValue);
@@ -45,4 +49,18 @@ public interface IPlatform {
     public interface OnVideoRewardClosed{
         public void OnEvent(boolean success);
     }
+
+    public interface OnPopupCallback{
+        public void OnValue(String value);
+    }
+    public interface OnShareCallback{
+        public void OnValue(boolean value);
+    }
+    public interface OnFormatCallback{
+        public void OnValue(String value);
+    }
+
+
+
+
 }

@@ -1,6 +1,10 @@
 package com.ss.gameLogic.config;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.Json;
+import com.badlogic.gdx.utils.JsonReader;
+import com.badlogic.gdx.utils.JsonValue;
 import com.ss.GMain;
 import com.ss.core.util.GStage;
 import com.ss.gameLogic.objects.LoadLv;
@@ -25,11 +29,9 @@ public class Config {
     public static float bounce =-100;
     public static float Speed_Drop=15;
     public static float draBounce=0.2f;
-    public static float dradestroyball=0.05f;
     public static float SpeedGrid=5;
-    public static float vibrate=5;
-    public static float vibrateDesc=0.2f;
-    public static float duravibrate=0.1f;
+    public static float vibrate=10;
+    public static float duravibrate=0.2f;
     public static long ScBall=100;
     public static long ScBallDrop=200;
     public static long PercentScCB=50;
@@ -45,6 +47,7 @@ public class Config {
     public static int FireBall=6;
     public static int ChangeColor=7;
     public static int Bomb=9;
+    public static int timefireBall=5;
     public static int typeChangeColor=0;
     public static int timeSkillColor=5;
     public static int pecentSkillColor=3;
@@ -55,7 +58,24 @@ public class Config {
     public static int BonusTime=5;
     public static float ballApear = -ROW_HEGHT*5;
     public static int ballType=1;
-    public static long monney = GMain.prefs.getLong("Monney",0);;
+    public static long monney = GMain.prefs.getLong("Monney",2000);
+    public static boolean checkSkillTime = false;
+    public static boolean checkSkillColor = false;
+    public static boolean checkSkillBomb = false;
+    public static int     indexMusic = 0;
+    public static String OTHER_GAME_STRING=GMain.platform.GetConfigStringValue("crosspanel", Gdx.files.internal("data/other_games.json").readString());
+
+
+    //////////////////// Achivement /////////////////////////////
+
+    public static int BubbleMonment = GMain.prefs.getInteger("bubbleMM",0);
+    public static long highScMomnet = GMain.prefs.getLong("HighSc",0);
+    public static int comboMoment = GMain.prefs.getInteger("comboMM");
+    public static int levelMoment = GMain.prefs.getInteger("level",0);
+    public static int coinMonment = GMain.prefs.getInteger("coinsMM",0);
+    public static int wowMoment = GMain.prefs.getInteger("wowMM",0);
+    public static int crazyMoment = GMain.prefs.getInteger("crazyMM",0);
+    public static int fanbulousMoment = GMain.prefs.getInteger("fanblMM",0);
 
     public static LoadLv LoadLv(int id){
         LoadLv info ;
@@ -110,7 +130,7 @@ public class Config {
                 break;
             }
             case 13:{
-                info = js.fromJson(LoadLv.class,"{lv:[1,2,4,6]}");
+                info = js.fromJson(LoadLv.class,"{lv:[1,2,3,4,5,6]}");
                 break;
             }
             case 14:{
@@ -158,7 +178,7 @@ public class Config {
                 break;
             }
             case 25:{
-                info = js.fromJson(LoadLv.class,"{lv:[1,2,4,6]}");
+                info = js.fromJson(LoadLv.class,"{lv:[1,2,3,4,5,6,7]}");
                 break;
             }
             case 26:{
@@ -367,6 +387,48 @@ public class Config {
             }
         }
         return info;
+    }
+    public static void loadjson(){
+        FileHandle js = Gdx.files.internal("data/ConfigData.json");
+        String jsonStr = js.readString();
+//        JsonReader json = new JsonReader();
+//        JsonValue jv = json.parse(jsonStr);
+        String jv2 =GMain.platform.GetConfigStringValue("config",jsonStr);
+        System.out.println("log: "+jv2);
+        JsonReader json = new JsonReader();
+        JsonValue jv = null;
+        try {
+            jv = json.parse(jv2);
+            System.out.println("log:"+jv.get("BALL_SPEED").asInt());
+        }catch (Exception e){
+            jv = json.parse(jsonStr);
+        }
+        BALL_SPEED          = jv.get("BALL_SPEED").asInt();
+        Dr_Ball_Cre         = jv.get("Dr_Ball_Cre").asFloat();
+        GridMove            = jv.get("GridMove").asFloat();
+        bounce              = jv.get("bounce").asFloat();
+        Speed_Drop          = jv.get("Speed_Drop").asFloat();
+        draBounce           = jv.get("draBounce").asFloat();
+        SpeedGrid           = jv.get("SpeedGrid").asFloat();
+        vibrate             = jv.get("vibrate").asFloat();
+        duravibrate         = jv.get("duravibrate").asFloat();
+        ScBall              = jv.get("ScBall").asLong();
+        ScBallDrop          = jv.get("ScBallDrop").asLong();
+        PercentScCB         = jv.get("PercentScCB").asLong();
+        ScoreWow            = jv.get("ScoreWow").asLong();
+        ScoreCrazy          = jv.get("ScoreCrazy").asLong();
+        ScoreFabulous       = jv.get("ScoreFabulous").asLong();
+        Wow                 = jv.get("Wow").asInt();
+        Crazy               = jv.get("Crazy").asInt();
+        Fabulous            = jv.get("Fabulous").asInt();
+        timeSkillColor      = jv.get("timeSkillColor").asInt();
+        pecentSkillColor    = jv.get("pecentSkillColor").asInt();
+        timeSkillClock      = jv.get("timeSkillClock").asInt();
+        pecentSkillClock    = jv.get("pecentSkillClock").asInt();
+        timeSkillBomb       = jv.get("timeSkillBomb").asInt();
+        pecentSkillBomb     = jv.get("pecentSkillBomb").asInt();
+        BonusTime           = jv.get("BonusTime").asInt();
+        timefireBall        = jv.get("timefireBall").asInt();
     }
 
 }

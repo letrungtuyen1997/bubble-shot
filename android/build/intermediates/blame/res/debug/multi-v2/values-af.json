@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "/Users/dungle/Desktop/libgdx/bubble wood/android/build/intermediates/incremental/mergeDebugResources/merged.dir/values-af/values-af.xml",
+            "outputFile": "/Users/dungle/Desktop/libgdx/bubbleShot/bubble-shot/android/build/intermediates/incremental/mergeDebugResources/merged.dir/values-af/values-af.xml",
             "map": [
                 {
                     "source": "/Users/dungle/.gradle/caches/transforms-1/files-1.1/play-services-ads-18.3.0.aar/a459e9e45aa19b069d478b4ec6294b5c/res/values-af/values.xml",

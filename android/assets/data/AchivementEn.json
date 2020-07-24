@@ -1,0 +1,42 @@
+[
+  {
+    "info": "Destroy 10.000 bubble",
+    "monent": 0,
+    "target": 10000
+  },
+  {
+    "info": "Achivement a high score\nof 300.000",
+    "monent": 0,
+    "target": 300000
+  },
+  {
+    "info": "Reach a combo of 30",
+    "monent": 0,
+    "target": 30
+  },
+  {
+    "info": "Reach level 30",
+    "monent": 0,
+    "target": 30
+  },
+  {
+    "info": "Pepper 50.000 Coins",
+    "monent": 0,
+    "target": 50000
+  },
+  {
+    "info": "Reach 100 time Wow",
+    "monent": 0,
+    "target": 100
+  },
+  {
+    "info": "Reach 100 time Crazy",
+    "monent": 0,
+    "target": 100
+  },
+  {
+    "info": "Reach 100 time Fanbulous",
+    "monent": 0,
+    "target": 100
+  }
+]

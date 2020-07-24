@@ -1,0 +1,181 @@
+
+crossPanel.png
+size: 2048,1024
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+add
+  rotate: false
+  xy: 1080, 89
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+btnGameOther
+  rotate: false
+  xy: 1696, 351
+  size: 136, 136
+  orig: 136, 136
+  offset: 0, 0
+  index: -1
+btnGreen
+  rotate: false
+  xy: 1753, 725
+  size: 237, 94
+  orig: 237, 94
+  offset: 0, 0
+  index: -1
+btnWatch
+  rotate: false
+  xy: 1937, 921
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+btn_yellow
+  rotate: false
+  xy: 1802, 499
+  size: 200, 61
+  orig: 200, 61
+  offset: 0, 0
+  index: -1
+frmCross
+  rotate: false
+  xy: 2, 109
+  size: 664, 912
+  orig: 664, 912
+  offset: 0, 0
+  index: -1
+icon_exit
+  rotate: false
+  xy: 478, 40
+  size: 67, 67
+  orig: 67, 67
+  offset: 0, 0
+  index: -1
+loading
+  rotate: false
+  xy: 1802, 562
+  size: 161, 161
+  orig: 161, 161
+  offset: 0, 0
+  index: -1
+otherGameEn
+  rotate: false
+  xy: 668, 46
+  size: 410, 93
+  orig: 410, 93
+  offset: 0, 0
+  index: -1
+otherGameVn
+  rotate: false
+  xy: 1182, 65
+  size: 405, 96
+  orig: 405, 96
+  offset: 0, 0
+  index: -1
+panel
+  rotate: false
+  xy: 668, 141
+  size: 512, 880
+  orig: 512, 880
+  offset: 0, 0
+  index: -1
+panel_register
+  rotate: false
+  xy: 1182, 693
+  size: 569, 328
+  orig: 569, 328
+  offset: 0, 0
+  index: -1
+rank_0
+  rotate: false
+  xy: 1807, 46
+  size: 75, 107
+  orig: 75, 107
+  offset: 0, 0
+  index: -1
+rank_1
+  rotate: false
+  xy: 1834, 390
+  size: 75, 107
+  orig: 75, 107
+  offset: 0, 0
+  index: -1
+rank_2
+  rotate: false
+  xy: 1911, 390
+  size: 75, 107
+  orig: 75, 107
+  offset: 0, 0
+  index: -1
+rank_overlay
+  rotate: false
+  xy: 2, 7
+  size: 200, 28
+  orig: 200, 28
+  offset: 0, 0
+  index: -1
+ribbon
+  rotate: false
+  xy: 1182, 489
+  size: 618, 202
+  orig: 618, 202
+  offset: 0, 0
+  index: -1
+row_overlay
+  rotate: false
+  xy: 1080, 2
+  size: 400, 61
+  orig: 400, 61
+  offset: 0, 0
+  index: -1
+stroke
+  rotate: false
+  xy: 1753, 821
+  size: 182, 200
+  orig: 182, 200
+  offset: 0, 0
+  index: -1
+tag
+  rotate: false
+  xy: 1589, 71
+  size: 216, 82
+  orig: 216, 82
+  offset: 0, 0
+  index: -1
+textinput
+  rotate: false
+  xy: 2, 37
+  size: 474, 70
+  orig: 474, 70
+  offset: 0, 0
+  index: -1
+tittle_notice
+  rotate: false
+  xy: 1182, 326
+  size: 512, 161
+  orig: 512, 161
+  offset: 0, 0
+  index: -1
+tittle_notice_vi
+  rotate: false
+  xy: 1182, 163
+  size: 512, 161
+  orig: 512, 161
+  offset: 0, 0
+  index: -1
+topscore
+  rotate: false
+  xy: 1696, 155
+  size: 342, 93
+  orig: 342, 93
+  offset: 0, 0
+  index: -1
+topscore_vi
+  rotate: false
+  xy: 1696, 250
+  size: 342, 99
+  orig: 342, 99
+  offset: 0, 0
+  index: -1

@@ -2,7 +2,6 @@ package com.ss.core.util;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Mesh;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -19,13 +18,9 @@ import com.badlogic.gdx.utils.SnapshotArray;
 import com.badlogic.gdx.utils.Sort;
 import com.badlogic.gdx.utils.StringBuilder;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
-import com.badlogic.gdx.utils.viewport.FillViewport;
 import com.badlogic.gdx.utils.viewport.FitViewport;
-
-import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.ss.core.util.GLayer;
-import com.ss.core.util.GLayerGroup;
+
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.Vector;

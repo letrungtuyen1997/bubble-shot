@@ -6,8 +6,6 @@ import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.FrameBuffer;
 import com.ss.core.transitions.GTransition;
-import com.ss.core.util.GScreen;
-import com.ss.core.util.GStage;
 
 public abstract class GDirectedGame implements ApplicationListener {
    private static boolean isUseTransition = true;

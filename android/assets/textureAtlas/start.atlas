@@ -1,0 +1,20 @@
+
+start.png
+size: 1024,2048
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+bgStart
+  rotate: false
+  xy: 2, 233
+  size: 720, 1280
+  orig: 720, 1280
+  offset: 0, 0
+  index: -1
+btnYellow
+  rotate: false
+  xy: 2, 2
+  size: 415, 229
+  orig: 415, 229
+  offset: 0, 0
+  index: -1

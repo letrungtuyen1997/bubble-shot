@@ -1,11 +1,8 @@
 package com.ss.core.effect;
 
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.ss.GMain;
-import java.util.ArrayList;
+
 import java.util.HashMap;
-import java.util.List;
 
 public class AnimationEffect {
 

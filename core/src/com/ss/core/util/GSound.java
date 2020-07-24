@@ -8,8 +8,6 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.utils.LongMap;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.ss.GMain;
-import com.ss.core.util.GAssetsManager;
-import com.ss.core.util.GStage;
 import com.ss.gdx.NSound;
 
 import java.util.Iterator;

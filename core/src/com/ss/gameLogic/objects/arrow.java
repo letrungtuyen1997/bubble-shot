@@ -68,14 +68,17 @@ public class arrow {
     public void SetArrow(float ball_x, float ball_y, float mouse_x, float mouse_y){
         boolean check=false;
         Double deg = Math.atan2(ball_y-mouse_y,mouse_x-ball_x);
+//        System.out.println("deg: "+Math.toDegrees(deg));
         if(mouse_x>= GStage.getWorldWidth()-50){
             check=true;
             setVisible(dotright,true);
             setVisible(dotleft,false);
             for (int i=0; i<dotright.size;i++){
                 float x0=0,y0=0;
-                x0 = mouse_x - ((Distance(ball_x,ball_y,mouse_x- Config.BALL_RADIUS,mouse_y- Config.BALL_RADIUS)/4)*(i+1))*(float) Math.cos(deg);
-                y0 = mouse_y - ((Distance(ball_x,ball_y,mouse_x- Config.BALL_RADIUS,mouse_y- Config.BALL_RADIUS)/4)*(i+1))*(float) Math.sin(deg);
+                x0 = mouse_x - ((Distance(ball_x,ball_y,mouse_x- Config.BALL_RADIUS,
+                        mouse_y- Config.BALL_RADIUS)/4)*(i+1))*(float) Math.cos(deg);
+                y0 = mouse_y - ((Distance(ball_x,ball_y,mouse_x- Config.BALL_RADIUS,
+                        mouse_y- Config.BALL_RADIUS)/4)*(i+1))*(float) Math.sin(deg);
                 dotright.get(i).setPosition(x0,y0,Align.center);
 
             }
@@ -85,8 +88,10 @@ public class arrow {
             check=true;
             for (int i=0; i<dotleft.size;i++){
                 float x0=0,y0=0;
-                x0 = mouse_x - ((Distance(ball_x,ball_y,mouse_x- Config.BALL_RADIUS,mouse_y- Config.BALL_RADIUS)/4)*(i+1))*(float) Math.cos(deg);
-                y0 = mouse_y - ((Distance(ball_x,ball_y,mouse_x- Config.BALL_RADIUS,mouse_y- Config.BALL_RADIUS)/4)*(i+1))*(float) Math.sin(deg);
+                x0 = mouse_x - ((Distance(ball_x,ball_y,mouse_x- Config.BALL_RADIUS,
+                        mouse_y- Config.BALL_RADIUS)/4)*(i+1))*(float) Math.cos(deg);
+                y0 = mouse_y - ((Distance(ball_x,ball_y,mouse_x- Config.BALL_RADIUS,
+                        mouse_y- Config.BALL_RADIUS)/4)*(i+1))*(float) Math.sin(deg);
                 dotleft.get(i).setPosition(x0,y0,Align.center);
 
             }
@@ -98,14 +103,14 @@ public class arrow {
             setVisible(dotleft,false);
         }
         for(int i=0;i<dotcenter.size;i++){
-            int dec=8;
-            if(i==7&&check==true){
-
-                dotcenter.get(i).setVisible(false);
-                dec=7;
-            }else {
-                dotcenter.get(i).setVisible(true);
-            }
+            int dec=7;
+//            if(i==7&&check==true){
+//
+//                dotcenter.get(i).setVisible(false);
+//                dec=7;
+//            }else {
+//                dotcenter.get(i).setVisible(true);
+//            }
 
             float x=0,y=0;
             x = ball_x + ((Distance(ball_x,ball_y,mouse_x,mouse_y)/dec)*i)*(float) Math.cos(deg);

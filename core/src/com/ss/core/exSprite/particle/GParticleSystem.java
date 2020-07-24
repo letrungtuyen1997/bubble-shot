@@ -9,11 +9,11 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.badlogic.gdx.utils.Pool;
-import com.ss.core.exSprite.particle.GParticleSprite;
 import com.ss.core.util.GAssetsManager;
 import com.ss.core.util.GLayer;
 import com.ss.core.util.GRes;
 import com.ss.core.util.GStage;
+
 import java.util.Iterator;
 
 public class GParticleSystem extends Pool implements Disposable {

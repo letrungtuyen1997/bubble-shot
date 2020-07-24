@@ -58,7 +58,7 @@ public class Wheel extends Group {
   private static final  float                        POINTER_Y_OFFSET    = 1.85f;             // chỉnh vị trí cho con trỏ (cao thấp)
   private static        float                        WHEEL_ARC           = 30;
   private static final  int                          TOTAL_PERCENT       = 10000;
-  private static        Wheel                        inst;
+  private static Wheel inst;
 
   private               Image                        wheel;
   private               Vector2                      cp;

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.jkstudiogroup.template"
+    package="com.bubbleshot"
     android:versionCode="2"
     android:versionName="2.0" >
 
@@ -27,7 +27,6 @@
         android:icon="@drawable/ic_launcher"
         android:isGame="true"
         android:label="@string/app_name"
-        android:testOnly="true"
         android:theme="@style/GdxTheme" >
         <activity
             android:name="com.mygdx.game.AndroidLauncher"
@@ -49,7 +48,7 @@
 
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-9108876944724815~8160462448" />
+            android:value="ca-app-pub-9108876944724815~4155488078" />
 
         <service
             android:name="com.google.firebase.components.ComponentDiscoveryService"
@@ -71,7 +70,7 @@
 
         <provider
             android:name="com.crashlytics.android.CrashlyticsInitProvider"
-            android:authorities="com.jkstudiogroup.template.crashlyticsinitprovider"
+            android:authorities="com.bubbleshot.crashlyticsinitprovider"
             android:exported="false"
             android:initOrder="90" />
 
@@ -116,7 +115,7 @@
 
         <provider
             android:name="com.google.firebase.provider.FirebaseInitProvider"
-            android:authorities="com.jkstudiogroup.template.firebaseinitprovider"
+            android:authorities="com.bubbleshot.firebaseinitprovider"
             android:exported="false"
             android:initOrder="100" />
 
@@ -157,7 +156,7 @@
 
         <provider
             android:name="com.google.android.gms.ads.MobileAdsInitProvider"
-            android:authorities="com.jkstudiogroup.template.mobileadsinitprovider"
+            android:authorities="com.bubbleshot.mobileadsinitprovider"
             android:exported="false"
             android:initOrder="100" />
 

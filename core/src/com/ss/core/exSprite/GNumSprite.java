@@ -2,11 +2,11 @@ package com.ss.core.exSprite;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.ss.core.util.GRes;
+
 import java.util.HashMap;
 
 public class GNumSprite extends Actor {

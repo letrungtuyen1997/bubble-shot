@@ -15,25 +15,19 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Pixmap;
-import com.badlogic.gdx.graphics.PixmapIO;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.Gdx2DPixmap;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.ParticleEmitter;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
-
-import com.badlogic.gdx.utils.StreamUtils;
 import com.ss.GMain;
-import com.ss.core.util.GRes;
 import com.ss.gdx.NParticleEffect;
 import com.ss.gdx.NParticleEffectLoader;
 import com.ss.gdx.NSound;
 
-import java.io.Closeable;
 import java.io.InputStream;
 import java.util.Iterator;
 
@@ -522,7 +516,7 @@ public class GAssetsManager {
       Object load(String var1, FileHandle var2);
    }
 
-   public static class GDataLoader extends AsynchronousAssetLoader<Object, GAssetsManager.GameDataParameter> {
+   public static class GDataLoader extends AsynchronousAssetLoader<Object, GameDataParameter> {
       private Object dat;
 
       public GDataLoader(FileHandleResolver var1) {

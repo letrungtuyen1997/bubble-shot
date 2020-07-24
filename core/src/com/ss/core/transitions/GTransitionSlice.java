@@ -3,10 +3,8 @@ package com.ss.core.transitions;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.utils.Array;
-import com.ss.core.transitions.GTransition;
 
 public class GTransitionSlice extends GTransition {
    public static final int DOWN = 2;

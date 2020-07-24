@@ -42,6 +42,21 @@ public class DesktopLauncher {
       }
 
       @Override
+      public void Onshow() {
+
+      }
+
+      @Override
+      public void ShareFb() {
+
+      }
+
+      @Override
+      public void Resize() {
+
+      }
+
+      @Override
       public int GetConfigIntValue(String name, int defaultValue) {
         return 0;
       }

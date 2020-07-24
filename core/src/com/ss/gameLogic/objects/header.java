@@ -1,7 +1,5 @@
 package com.ss.gameLogic.objects;
 
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -11,13 +9,14 @@ import com.ss.commons.BitmapFontC;
 import com.ss.commons.TextureAtlasC;
 import com.ss.core.action.exAction.GSimpleAction;
 import com.ss.core.util.GLayer;
+import com.ss.core.util.GLayerGroup;
 import com.ss.core.util.GStage;
 import com.ss.core.util.GUI;
 import com.ss.effects.SoundEffect;
 import com.ss.gameLogic.config.Config;
 
 public class header {
-    public Group grHeader = new Group();
+    public GLayerGroup grHeader = new GLayerGroup();
     private Label lbTime,lbScore;
     public int time=60;
     private int tic=0,setTime=0;
@@ -46,7 +45,7 @@ public class header {
         lbTime.setFontScale(0.8f);
         lbTime.setOrigin(Align.center);
         lbTime.setAlignment(Align.center);
-        lbTime.setPosition(frmTimer.getX()+frmTimer.getWidth()*0.65f,frmTimer.getY()+frmTimer.getHeight()*0.4f,Align.center);
+        lbTime.setPosition(frmTimer.getX()+frmTimer.getWidth()*0.70f,frmTimer.getY()+frmTimer.getHeight()*0.4f,Align.center);
         grHeader.addActor(lbTime);
 //        CountDownTime();
         Image frmsc = GUI.createImage(TextureAtlasC.Boardgame,"frmSc");
@@ -63,7 +62,7 @@ public class header {
 
     }
     public void CountDownTime(){
-        grHeader.addAction(GSimpleAction.simpleAction((d,a)->{
+        grHeader.addAction(GSimpleAction.simpleAction((d, a)->{
             tic++;
             if(tic==60){
                 tic=0;
@@ -101,12 +100,12 @@ public class header {
         }
     }
     private void BlinkTime(Image img){
-        System.out.println("blink!!!!!!!!");
+//        System.out.println("blink!!!!!!!!");
         if(img!=null){
            img.addAction(Actions.sequence(
                     Actions.alpha(0,0.2f),
                     Actions.alpha(1,0.2f),
-                    GSimpleAction.simpleAction((d,a)->{
+                    GSimpleAction.simpleAction((d, a)->{
                         if(time==0)
                             return true;
                         BlinkTime(img);
@@ -124,4 +123,8 @@ public class header {
         else
             time=60;
     }
+    public void setPause(boolean set){
+       grHeader.setPause(set);
+    }
+
 }

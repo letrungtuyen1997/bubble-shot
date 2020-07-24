@@ -15,6 +15,7 @@ import com.ss.commons.TextureAtlasC;
 import com.ss.core.action.exAction.GSimpleAction;
 import com.ss.core.exSprite.GShapeSprite;
 import com.ss.core.util.GLayer;
+import com.ss.core.util.GScreen;
 import com.ss.core.util.GStage;
 import com.ss.core.util.GUI;
 import com.ss.effects.SoundEffect;
@@ -24,6 +25,7 @@ import com.ss.gameLogic.config.Config;
 public class frmHeader {
     private Group gr = new Group();
     public int lv = GMain.prefs.getInteger("level",1);
+    public int lvOld = GMain.prefs.getInteger("levelOld",1);
     public long expMoment= GMain.prefs.getLong("ExpMoment");
     public long expTarget=GMain.prefs.getLong("ExpTarget",100);
     public long Monney= Config.monney;
@@ -32,11 +34,13 @@ public class frmHeader {
     public Array <Image> arrIc = new Array<>();
     private long BonusTemp=0;
     final GShapeSprite WhiteOverLay = new GShapeSprite();
+    private GScreen gScreen;
 
-    public frmHeader(){
+    public frmHeader(GScreen gScreen){
+        this.gScreen = gScreen;
         GStage.addToLayer(GLayer.ui,gr);
         Image frm = GUI.createImage(TextureAtlasC.GameOver,"frmTitle");
-        frm.setPosition(GStage.getWorldWidth()/2,100, Align.center);
+        frm.setPosition(GStage.getWorldWidth()/2,70, Align.center);
         gr.addActor(frm);
         frmExp = GUI.createImage(TextureAtlasC.GameOver,"frmExp");
         frmExp.setPosition(frm.getX()+frm.getWidth()*0.15f,frm.getY()+frm.getHeight()*0.45f,Align.center);
@@ -63,9 +67,17 @@ public class frmHeader {
         }
         updateLvSc((long)0);
         updateMonney((long)0);
+        updateAchivement();
         checkHighSc((long)0);
         aniBtnMission(arrIc.get(2));
         eventBtnMission(arrIc.get(2));
+        //////// show leaderboard//////
+        aniBtnMission(arrIc.get(3));
+        eventBtnRank(arrIc.get(3));
+        gr.setPosition(0,-100);
+
+        gr.addAction(Actions.moveBy(0,100,1f,Interpolation.swingOut));
+
 
     }
     public  void updateMonney(Long Bonus){
@@ -83,19 +95,25 @@ public class frmHeader {
         if(arrLb.get(1)!=null){
             arrLb.get(1).setText(""+Config.monney);
         }
+        GMain.prefs.putInteger("coinsMM",(int)(GMain.prefs.getInteger("coinsMM")+Monney));
         GMain.prefs.putLong("Monney", Config.monney);
         GMain.prefs.flush();
     }
     public void updateLvSc(Long Bonus){
         checkLv(Bonus);
-        System.out.println("expMoment: "+expMoment);
-        System.out.println("expTarget: "+expTarget);
+//        System.out.println("expMoment: "+expMoment);
+//        System.out.println("expTarget: "+expTarget);
         frmExp.setScale((float)expMoment/expTarget,1);
         if(arrLb.get(0)!=null){
             arrLb.get(0).setText(lv);
         }
         GMain.prefs.putLong("ExpMoment", expMoment);
         GMain.prefs.flush();
+    }
+    public void updateAchivement(){
+        if(arrLb.get(2)!=null){
+            arrLb.get(2).setText(""+GMain.prefs.getInteger("quantityfinish")+"/8");
+        }
     }
     public void checkLv(Long Bonus){
         if(Bonus<=expTarget){
@@ -126,10 +144,12 @@ public class frmHeader {
                 arrLb.get(3).setText(""+HighSc);
             }
             GMain.prefs.putLong("HighSc", HighSc);
+            GMain.prefs.flush();
+            GMain.platform.ReportScore(GMain.prefs.getLong("HighSc"));
+
         }
-
-
     }
+
     private void aniBtnMission(Image btn){
         btn.setOrigin(Align.center);
         btn.addAction(Actions.sequence(
@@ -148,15 +168,32 @@ public class frmHeader {
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
                 super.touchUp(event, x, y, pointer, button);
                 SoundEffect.Play(SoundEffect.ExpUp);
-                leveup();
-//                new Mission();
+                new Mission();
             }
         });
+    }
+    private void eventBtnRank(Image btn){
+        btn.addListener(new ClickListener(){
+            @Override
+            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+                super.touchUp(event, x, y, pointer, button);
+                SoundEffect.Play(SoundEffect.ExpUp);
+//                gScreen.setScreen(LDBFactory.getLDB());
+                GMain.platform.ShowLeaderboard();
+            }
+        });
+    }
+    public void CheckLevelUp(){
+        if(lvOld<lv){
+            GMain.prefs.putInteger("levelOld", lv);
+            GMain.prefs.flush();
+            leveup();
+        }
     }
     private void leveup(){
         Group gr = new Group();
         GStage.addToLayer(GLayer.top,gr);
-        WhiteOverLay.createRectangle(true,-GStage.getWorldWidth()/2,-GStage.getWorldHeight()/2,GStage.getWorldWidth(),GStage.getWorldHeight());
+        WhiteOverLay.createRectangle(true,-GStage.getWorldWidth()/2,-GStage.getWorldHeight()/2, GStage.getWorldWidth(), GStage.getWorldHeight());
         WhiteOverLay.setColor(0,0,0,0.7f);
         gr.addActor(WhiteOverLay);
         ////////// frm //////////
@@ -202,11 +239,11 @@ public class frmHeader {
         gr.addActor(grbtn);
         btn(grbtn,0,frm.getY()+frm.getHeight()*1.2f,"btnRed",C.lang.lbBtnRed);
         eventBtnRed(grbtn,gr);
-        gr.setPosition(GStage.getWorldWidth()/2,GStage.getWorldHeight()/2,Align.center);
+        gr.setPosition(GStage.getWorldWidth()/2, GStage.getWorldHeight()/2,Align.center);
         gr.setScale(0);
         gr.addAction(Actions.sequence(
                 Actions.scaleTo(1,1,0.5f, Interpolation.swingOut),
-                GSimpleAction.simpleAction((d,a)->{
+                GSimpleAction.simpleAction((d, a)->{
                     SoundEffect.Play(SoundEffect.levelup);
                     return true;
                 })
@@ -237,6 +274,7 @@ public class frmHeader {
             }
         });
     }
+
 
 
 

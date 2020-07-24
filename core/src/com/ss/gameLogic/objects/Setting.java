@@ -9,18 +9,16 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
 import com.platform.ToggleHandler;
-import com.ss.GMain;
 import com.ss.commons.TextureAtlasC;
-import com.ss.commons.ToggleBtn;
 import com.ss.commons.Tweens;
 import com.ss.commons._ToggleButton;
-import com.ss.core.action.exAction.GSimpleAction;
 import com.ss.core.exSprite.GShapeSprite;
 import com.ss.core.util.GStage;
 import com.ss.core.util.GUI;
 import com.ss.effects.SoundEffect;
 import com.ss.gameLogic.config.Config;
 import com.ss.scenes.GameScene;
+import com.ss.scenes.StartScene;
 
 public class Setting implements ToggleHandler {
     private Image btnSetting;
@@ -29,10 +27,12 @@ public class Setting implements ToggleHandler {
     private Group group = new Group();
     private GameScene gameScene;
 
-    public Setting(Group gr, Image btn, GameScene gameScene){
+    public Setting(Group gr, Image btn, GameScene gameScene, header header, Grid grid){
         this.gameScene = gameScene;
         gr.addActor(group);
         btnSetting=btn;
+        header.setPause(true);
+        grid.setPause(true);
         final GShapeSprite blackOverlay = new GShapeSprite();
         blackOverlay.createRectangle(true, -GStage.getWorldWidth(),-GStage.getWorldHeight()/2, GStage.getWorldWidth()*2, GStage.getWorldHeight()*2);
         blackOverlay.setColor(0,0,0,0.5f);
@@ -43,17 +43,20 @@ public class Setting implements ToggleHandler {
                 super.touchUp(event, x, y, pointer, button);
                     group.clear();
                     group.remove();
+                    header.setPause(false);
+                    grid.setPause(false);
             }
         });
         ////////////////// music///////////////////
         ////////// btn TurnOn /////////
         Image btnTurnOnMusic = GUI.createImage(TextureAtlasC.Boardgame,"turnOnMs");
-        btnTurnOnMusic.setPosition(-btnTurnOnMusic.getWidth()/2,btnSetting.getY()-btnTurnOnMusic.getHeight(),Align.center);
+        btnTurnOnMusic.setPosition(GStage.getWorldWidth()-btnTurnOnMusic.getWidth()/2,btnSetting.getY()+btnTurnOnMusic.getHeight(),Align.center);
+        //System.out.println("check position: "+btnTurnOnMusic.getX()+" y: "+btnTurnOnMusic.getY());
         group.addActor(btnTurnOnMusic);
         arrOn.add(btnTurnOnMusic);
         ///////// btn TurnOff ///////
         Image btnTurnOffMusic = GUI.createImage(TextureAtlasC.Boardgame,"turnOffMs");
-        btnTurnOffMusic.setPosition(-btnTurnOnMusic.getWidth()/2,btnSetting.getY()-btnTurnOnMusic.getHeight(),Align.center);
+        btnTurnOffMusic.setPosition(GStage.getWorldWidth()-btnTurnOnMusic.getWidth()/2,btnSetting.getY()+btnTurnOnMusic.getHeight(),Align.center);
         group.addActor(btnTurnOffMusic);
         arrOff.add(btnTurnOffMusic);
         if(SoundEffect.music==false){
@@ -65,12 +68,12 @@ public class Setting implements ToggleHandler {
         /////////// Sound ////////
         ////////// btn TurnOn /////////
         Image btnTurnOnSound = GUI.createImage(TextureAtlasC.Boardgame,"turnOnSu");
-        btnTurnOnSound.setPosition(-btnTurnOnMusic.getWidth()/2,btnSetting.getY()-btnTurnOnSound.getHeight()*2-10,Align.center);
+        btnTurnOnSound.setPosition(GStage.getWorldWidth()-btnTurnOnMusic.getWidth()/2,btnSetting.getY()+btnTurnOnSound.getHeight()*2+10,Align.center);
         group.addActor(btnTurnOnSound);
         arrOn.add(btnTurnOnSound);
         ///////// btn TurnOff ///////
         Image btnTurnOffSound = GUI.createImage(TextureAtlasC.Boardgame,"turnOffSu");
-        btnTurnOffSound.setPosition(-btnTurnOnMusic.getWidth()/2,btnSetting.getY()-btnTurnOnSound.getHeight()*2-10,Align.center);
+        btnTurnOffSound.setPosition(GStage.getWorldWidth()-btnTurnOnMusic.getWidth()/2,btnSetting.getY()+btnTurnOnSound.getHeight()*2+10,Align.center);
         group.addActor(btnTurnOffSound);
         arrOff.add(btnTurnOffSound);
         if(SoundEffect.mute==false){
@@ -81,8 +84,8 @@ public class Setting implements ToggleHandler {
         new _ToggleButton(btnTurnOnSound,btnTurnOffSound,"sound",this);
 
         ////////// home ///////////
-        Image btnHome = GUI.createImage(TextureAtlasC.Boardgame,"iconHome");
-        btnHome.setPosition(-btnHome.getWidth()/2,btnSetting.getY()-btnHome.getHeight()*3-20,Align.center);
+        Image btnHome = GUI.createImage(TextureAtlasC.Boardgame,"btnHome");
+        btnHome.setPosition(GStage.getWorldWidth()-btnHome.getWidth()/2,btnSetting.getY()+btnHome.getHeight()*3+20,Align.center);
         group.addActor(btnHome);
         arrOn.add(btnHome);
         arrOff.add(btnHome);
@@ -108,9 +111,9 @@ public class Setting implements ToggleHandler {
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
                 super.touchUp(event, x, y, pointer, button);
+                SoundEffect.Stopmusic(Config.indexMusic);
 //                SoundEffect.Play(SoundEffect.click);
-
-//                gameScene.setScreen(new StartScene());
+                gameScene.setScreen(new StartScene());
             }
         });
     }

@@ -10,9 +10,6 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ActorGestureListener;
 import com.ss.GMain;
 import com.ss.core.transitions.GTransition;
-import com.ss.core.util.GDirectedGame;
-import com.ss.core.util.GSound;
-import com.ss.core.util.GStage;
 
 public abstract class GScreen implements Screen {
    public static int viewportH;

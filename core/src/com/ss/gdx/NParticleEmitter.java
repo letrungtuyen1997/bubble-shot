@@ -2,7 +2,6 @@ package com.ss.gdx;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.ParticleEmitter;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.ss.GMain;
 
 import java.io.BufferedReader;

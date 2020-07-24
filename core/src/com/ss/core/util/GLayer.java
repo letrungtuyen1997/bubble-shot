@@ -2,7 +2,7 @@ package com.ss.core.util;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
-import com.ss.core.util.GLayerGroup;
+
 import java.util.Comparator;
 
 public enum GLayer {

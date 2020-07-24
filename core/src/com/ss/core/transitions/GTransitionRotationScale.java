@@ -3,10 +3,7 @@ package com.ss.core.transitions;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.ParticleEmitter;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Interpolation;
-import com.ss.core.transitions.GTransition;
 
 public class GTransitionRotationScale extends GTransition {
    public static final int ROTATION_SCALE = 1;

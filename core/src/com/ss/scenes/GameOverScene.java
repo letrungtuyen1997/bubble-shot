@@ -17,6 +17,7 @@ import com.ss.commons.Tweens;
 import com.ss.core.action.exAction.GSimpleAction;
 import com.ss.core.action.exAction.GTemporalAction;
 import com.ss.core.exSprite.GShapeSprite;
+import com.ss.core.transitions.GTransitionSlide;
 import com.ss.core.util.GLayer;
 import com.ss.core.util.GScreen;
 import com.ss.core.util.GStage;
@@ -42,18 +43,18 @@ public class GameOverScene extends GScreen {
 
     @Override
     public void dispose() {
+        System.out.println();
 
     }
 
     @Override
     public void init() {
+        SoundEffect.Play(SoundEffect.Win);
         GStage.addToLayer(GLayer.ui,group);
         GStage.addToLayer(GLayer.top,grAni);
         GStage.addToLayer(GLayer.top,grBtn);
-        Config.Score=400000;
+//        Config.Score=400000;
         Create(Config.Score);
-
-
     }
 
     @Override
@@ -61,8 +62,9 @@ public class GameOverScene extends GScreen {
 
     }
     private void Create(long Score){
+        SoundEffect.Stopmusic(Config.indexMusic);
         String text = "";
-        if(Score>0&&Score<100000){
+        if(Score>=0&&Score<100000){
             text ="niceEn" ;
             BonusMoney = 120;
             BonusExp = 100;
@@ -77,21 +79,27 @@ public class GameOverScene extends GScreen {
 
         }
         Image bg = GUI.createImage(TextureAtlasC.GameOver,"bgGameOver");
-        bg.setSize(GStage.getWorldWidth(),GStage.getWorldHeight());
+        bg.setSize(GStage.getWorldWidth(), GStage.getWorldHeight());
         group.addActor(bg);
-        WhiteOverLay.createRectangle(true,0,0,GStage.getWorldWidth(),GStage.getWorldHeight());
+        WhiteOverLay.createRectangle(true,0,0, GStage.getWorldWidth(), GStage.getWorldHeight());
         WhiteOverLay.setColor(0,0,0,0.8f);
         group.addActor(WhiteOverLay);
-        frmHeader = new frmHeader();
+        frmHeader = new frmHeader(this);
         Bonus = Score*frmHeader.lv/100;
 
 
         Image frm = GUI.createImage(TextureAtlasC.GameOver,"frmOver");
-        frm.setPosition(GStage.getWorldWidth()/2,GStage.getWorldHeight()/2, Align.center);
+        frm.setPosition(GStage.getWorldWidth()/2, GStage.getWorldHeight()/2, Align.center);
         group.addActor(frm);
         ////////////// light ///////////
-        effectWin ef = new effectWin(4,GStage.getWorldWidth()/2,frm.getY()+frm.getHeight()*0.3f,group);
-        ef.start();
+        for (int i=0;i<10;i++){
+            Tweens.setTimeout(group,0.1f*i,()->{
+                effectWin ef = new effectWin(4,(float)(Math.random()* GStage.getWorldWidth()),(float)(Math.random()* GStage.getWorldHeight()),group);
+                ef.start();
+            });
+
+        }
+
         //////// panel red //////
         Image panel = GUI.createImage(TextureAtlasC.GameOver,"panelRed");
         panel.setPosition(frm.getX()+frm.getWidth()/2,frm.getY()+panel.getHeight()/4,Align.center);
@@ -141,7 +149,7 @@ public class GameOverScene extends GScreen {
         lbReward.setPosition(GStage.getWorldWidth()/2,frm.getY()+frm.getHeight()*0.75f,Align.center);
         group.addActor(lbReward);
         ///////////// btn Done /////////
-        btn(grBtn,GStage.getWorldWidth()/2,frm.getY()+frm.getHeight()*1.2f,"btnRed",C.lang.lbBtnRed);
+        btn(grBtn, GStage.getWorldWidth()/2,frm.getY()+frm.getHeight()*1.2f,"btnRed",C.lang.lbBtnRed);
         grBtn.addAction(Actions.alpha(0,0));
         for(int i=0;i<2;i++){
             Image ic = GUI.createImage(TextureAtlasC.GameOver,"icon"+(i+1));
@@ -162,7 +170,7 @@ public class GameOverScene extends GScreen {
 
         lbYSc.addAction(Actions.sequence(
                 Actions.alpha(1,1),
-                GSimpleAction.simpleAction((d,a)->{
+                GSimpleAction.simpleAction((d, a)->{
                     WhiteOverLay.clear();
                     WhiteOverLay.remove();
                     counterUp(lbSc,Score);
@@ -183,10 +191,10 @@ public class GameOverScene extends GScreen {
             grSc.addAction(Actions.sequence(
                     Actions.scaleTo(1.2f,1.2f,0.2f),
                     Actions.scaleTo(1f,1f,0.2f),
-                    GSimpleAction.simpleAction((d,a)->{
+                    GSimpleAction.simpleAction((d, a)->{
                         lbBonus.addAction(Actions.sequence(
                                 Actions.alpha(1,1),
-                                GSimpleAction.simpleAction((d1,a1)->{
+                                GSimpleAction.simpleAction((d1, a1)->{
                                     if(Config.Score>0){
                                         BonusSc(lbSc,Bonus);
 
@@ -212,7 +220,7 @@ public class GameOverScene extends GScreen {
             grSc.addAction(Actions.sequence(
                     Actions.scaleTo(1.2f,1.2f,0.2f),
                     Actions.scaleTo(1f,1f,0.2f),
-                    GSimpleAction.simpleAction((d,a)->{
+                    GSimpleAction.simpleAction((d, a)->{
                         Config.Score+=Bonus;
                         frmHeader.checkHighSc(Config.Score);
                         counterUpExp(arrLb.get(0),BonusExp,SoundEffect.ExpUp);
@@ -245,7 +253,7 @@ public class GameOverScene extends GScreen {
         grAni.addActor(img);
         img.addAction(Actions.sequence(
                 Actions.moveTo(xMove,yMove,dura, Interpolation.smoother),
-                GSimpleAction.simpleAction((d,a)->{
+                GSimpleAction.simpleAction((d, a)->{
                     SoundEffect.Play(SoundEffect.ExpUp);
                     img.clear();
                     img.remove();
@@ -259,7 +267,7 @@ public class GameOverScene extends GScreen {
         grAni.addActor(img);
         img.addAction(Actions.sequence(
                 Actions.moveTo(xMove,yMove,dura, Interpolation.smoother),
-                GSimpleAction.simpleAction((d,a)->{
+                GSimpleAction.simpleAction((d, a)->{
                     SoundEffect.Play(SoundEffect.MonneyUp);
                     img.clear();
                     img.remove();
@@ -279,6 +287,7 @@ public class GameOverScene extends GScreen {
         }
         Tweens.setTimeout(group,2f,()->{
             eventBtn();
+
         });
 
     }
@@ -299,19 +308,20 @@ public class GameOverScene extends GScreen {
     }
     private void eventBtn(){
         grBtn.addAction(Actions.sequence(
-                Actions.alpha(1,1),
-                GSimpleAction.simpleAction((d,a)->{
-                    Config.Score=0;
-                    Config.combo=0;
-                    Config.ballType=1;
-                    return true;
-                })
+                Actions.alpha(1,1)
         ));
         grBtn.addListener(new ClickListener(){
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
                 super.touchUp(event, x, y, pointer, button);
-                GameOverScene.this.setScreen(new GameScene());
+                Config.Score=0;
+                Config.combo=0;
+                Config.ballType=1;
+                Config.checkSkillBomb=false;
+                Config.checkSkillTime=false;
+                Config.checkSkillColor=false;
+                GameOverScene.this.setScreen(new StartScene(), GTransitionSlide.init(0.5f,1,true,Interpolation.swingOut));
+                GMain.platform.ShowFullscreen();
 
             }
         });

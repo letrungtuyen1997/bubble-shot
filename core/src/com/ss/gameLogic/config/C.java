@@ -18,7 +18,7 @@ public class C {
     }
 
     public static class lang {
-        private static I18NBundle locale;
+        public static I18NBundle locale;
         public static String title = "";
         public static String adsTimeLbl = "";
         public static String idcontry = "";
@@ -36,6 +36,8 @@ public class C {
         public static String lbComplete = "";
         public static String scoreBonus= "";
         public static String boostSkill= "";
+        public static String lbStart= "";
+        public static String lbConratulation= "";
 
 
 
@@ -44,6 +46,7 @@ public class C {
             String deviceLang = GMain.platform.GetDefaultLanguage();
             System.out.println("language: "+deviceLang);
             FileHandle specFilehandle = Gdx.files.internal("i18n/lang_" + deviceLang);
+//            FileHandle specFilehandle = Gdx.files.internal("i18n/lang_" + "");
             FileHandle baseFileHandle = Gdx.files.internal("i18n/lang");
 
             try {
@@ -74,6 +77,8 @@ public class C {
             idcontry = locale.get("idcontry");
             scoreBonus = locale.get("scoreBonus");
             boostSkill = locale.get("boostSkill");
+            lbStart = locale.get("lbStart");
+            lbConratulation = locale.get("lbConratulation");
         }
     }
 

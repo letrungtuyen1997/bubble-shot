@@ -38,6 +38,9 @@ public class SoundEffect {
   public static int addTime = 21;
   public static int levelup = 22;
   public static int gameover = 23;
+  public static int mission = 24;
+  public static int panel_out = 25;
+  public static int Win = 26;
   private static Sound[] explode;
 
 
@@ -47,7 +50,7 @@ public class SoundEffect {
       explode[i] = GAssetsManager.getSound("e" + (i + 1) + ".mp3");
     commons = new Sound[MAX_COMMON];
     commons[shot] = GAssetsManager.getSound("shot.mp3");
-    commons[colision] = GAssetsManager.getSound("colision.mp3");
+    commons[colision] = GAssetsManager.getSound("colisionRec.mp3");
     commons[corect] = GAssetsManager.getSound("corect.mp3");
     commons[snap] = GAssetsManager.getSound("snap.mp3");
     commons[lose] = GAssetsManager.getSound("lose.mp3");
@@ -70,13 +73,13 @@ public class SoundEffect {
     commons[addTime] = GAssetsManager.getSound("UpTime.mp3");
     commons[levelup] = GAssetsManager.getSound("levelup.mp3");
     commons[gameover] = GAssetsManager.getSound("GameOver.mp3");
-
-
-//
-
+    commons[mission] = GAssetsManager.getSound("unlockMission.mp3");
+    commons[panel_out] = GAssetsManager.getSound("panel_Out.mp3");
+    commons[Win] = GAssetsManager.getSound("Win.mp3");
 ////        commons[coins] = GAssetsManager.getSound("Coin.mp3");
 ////        commons[coins].setVolume(2,5);
-//    bgSound = GAssetsManager.getMusic("bghome.mp3");
+    bgSound = GAssetsManager.getMusic("bg.mp3");
+    bgSound2 = GAssetsManager.getMusic("bg2.mp3");
 
   }
 
@@ -99,13 +102,13 @@ public class SoundEffect {
       case 1: {
         bgSound.play();
         bgSound.setLooping(true);
-        bgSound.setVolume(0.8f);
+        bgSound.setVolume(1f);
         break;
       }
       case 2: {
         bgSound2.play();
         bgSound2.setLooping(true);
-        bgSound2.setVolume(0.2f);
+        bgSound2.setVolume(1f);
         break;
       }
       case 3: {

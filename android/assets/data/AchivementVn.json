@@ -1,0 +1,42 @@
+[
+  {
+    "info": "Tiêu Huỷ 10.000 quả bóng",
+    "monent": 0,
+    "target": 10000
+  },
+  {
+    "info": "Đạt điểm cao 300.000",
+    "monent": 0,
+    "target": 300000
+  },
+  {
+    "info": "Combo 30 lần trong 1 ván",
+    "monent": 0,
+    "target": 30
+  },
+  {
+    "info": "Đạt cấp 30",
+    "monent": 0,
+    "target": 30
+  },
+  {
+    "info": "Tiêu 50.000 vàng",
+    "monent": 0,
+    "target": 50000
+  },
+  {
+    "info": "Đạt 100 lần Wow",
+    "monent": 0,
+    "target": 100
+  },
+  {
+    "info": "Đạt 100 lần Crazy",
+    "monent": 0,
+    "target": 100
+  },
+  {
+    "info": "Đạt 100 lần Fanbulous",
+    "monent": 0,
+    "target": 100
+  }
+]

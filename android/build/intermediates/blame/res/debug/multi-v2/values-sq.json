@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "/Users/dungle/Desktop/libgdx/bubble wood/android/build/intermediates/incremental/mergeDebugResources/merged.dir/values-sq/values-sq.xml",
+            "outputFile": "/Users/dungle/Desktop/libgdx/bubbleShot/bubble-shot/android/build/intermediates/incremental/mergeDebugResources/merged.dir/values-sq/values-sq.xml",
             "map": [
                 {
                     "source": "/Users/dungle/.gradle/caches/transforms-1/files-1.1/play-services-basement-17.0.0.aar/e3f72c70a59f7af4bad128bcf42f40bf/res/values-sq/values.xml",

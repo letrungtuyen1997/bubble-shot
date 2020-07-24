@@ -60,12 +60,12 @@ public class JokerSdk implements IPlatform {
   private static final int RC_UNUSED = 5001;
   private static final int RC_SIGN_IN = 9001;
 
-  private static final String LEADERBOARD_ID = "12345";
+  private static final String LEADERBOARD_ID = "CgkI2bbzg_IWEAIQAQ";
 
-  private static final String ADMOB_APP_ID = "ca-app-pub-9108876944724815~8160462448";
-  private static final String ADMOB_BANNER_ID = "ca-app-pub-3940256099942544/6300978111";
-  private static final String ADMOB_FULLSCREEN_ID = "ca-app-pub-3940256099942544/1033173712";
-  private static final String ADMOB_VIDEO_ID = "ca-app-pub-3940256099942544/5224354917";
+  private static final String ADMOB_APP_ID = "ca-app-pub-9108876944724815~4155488078";
+  private static final String ADMOB_BANNER_ID = "ca-app-pub-9108876944724815/5276998050";
+  private static final String ADMOB_FULLSCREEN_ID = "ca-app-pub-9108876944724815/9763037975";
+  private static final String ADMOB_VIDEO_ID = "ca-app-pub-9108876944724815/5053088031";
 //
   private OnVideoRewardClosed videoRewardCallback = null;
   boolean bannerVisible = false;
@@ -149,6 +149,21 @@ public class JokerSdk implements IPlatform {
   public void ShowBanner(boolean visible) {
     ShowGameBanner(visible);
     bannerVisible = visible;
+  }
+
+  @Override
+  public void Onshow() {
+
+  }
+
+  @Override
+  public void ShareFb() {
+
+  }
+
+  @Override
+  public void Resize() {
+
   }
 
   @Override

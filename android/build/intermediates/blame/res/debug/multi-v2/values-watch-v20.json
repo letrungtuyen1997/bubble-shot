@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "/Users/dungle/Desktop/libgdx/bubble wood/android/build/intermediates/incremental/mergeDebugResources/merged.dir/values-watch-v20/values-watch-v20.xml",
+            "outputFile": "/Users/dungle/Desktop/libgdx/bubbleShot/bubble-shot/android/build/intermediates/incremental/mergeDebugResources/merged.dir/values-watch-v20/values-watch-v20.xml",
             "map": [
                 {
                     "source": "/Users/dungle/.gradle/caches/transforms-1/files-1.1/play-services-auth-17.0.0.aar/ce285aa5ec9043fcc5f5183fb8c4beed/res/values-watch-v20/values.xml",

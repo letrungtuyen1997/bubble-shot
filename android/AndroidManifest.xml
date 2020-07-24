@@ -32,7 +32,8 @@
         </receiver>
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-9108876944724815~8160462448"/>
+            android:value="ca-app-pub-9108876944724815~4155488078"/>
+        <meta-data android:name="com.google.android.gms.games.APP_ID" android:value="@string/app_id" />
     </application>
 
 

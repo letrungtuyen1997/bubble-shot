@@ -17,7 +17,7 @@ android {
         exclude 'META-INF/robovm/ios/robovm.xml'
     }
     defaultConfig {
-        applicationId "com.jkstudiogroup.template"
+        applicationId "com.bubbleshot"
         minSdkVersion 16
         targetSdkVersion 29
         versionCode 2

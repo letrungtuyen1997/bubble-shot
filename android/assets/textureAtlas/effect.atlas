@@ -4,6 +4,20 @@ size: 1024,1024
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
+207
+  rotate: false
+  xy: 2, 198
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+4
+  rotate: false
+  xy: 2, 2
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
 EFF_GBox_Down01
   rotate: false
   xy: 2, 472
@@ -13,14 +27,14 @@ EFF_GBox_Down01
   index: -1
 EFF_GBox_Down02
   rotate: false
-  xy: 276, 342
+  xy: 646, 726
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 Gem_Un_01_04
   rotate: false
-  xy: 2, 198
+  xy: 146, 342
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
@@ -34,21 +48,21 @@ ITEM_Sp_04_Howl_2
   index: -1
 NPC_Burn
   rotate: false
-  xy: 516, 596
+  xy: 776, 856
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 NPC_DDlongA_skillEF
   rotate: false
-  xy: 646, 726
+  xy: 646, 596
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 PC_un_01
   rotate: false
-  xy: 2, 68
+  xy: 516, 596
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
@@ -62,72 +76,93 @@ PC_un_04_1
   index: -1
 PC_un_04_2
   rotate: false
-  xy: 146, 342
+  xy: 516, 726
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 PC_un_04_3
   rotate: false
-  xy: 516, 726
+  xy: 646, 856
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 PC_un_04_4
   rotate: false
-  xy: 646, 856
+  xy: 2, 68
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 SL_ChuanS_00_01
   rotate: false
-  xy: 776, 856
+  xy: 776, 726
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 SL_XiangZ_01_03
   rotate: false
-  xy: 2, 2
+  xy: 406, 406
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
+bubble
+  rotate: false
+  xy: 776, 600
+  size: 124, 124
+  orig: 124, 124
+  offset: 0, 0
+  index: -1
 ef1
   rotate: false
-  xy: 406, 416
+  xy: 633, 540
   size: 54, 54
   orig: 54, 54
   offset: 0, 0
   index: -1
 ef2
   rotate: false
-  xy: 646, 670
+  xy: 68, 12
   size: 54, 54
   orig: 54, 54
   offset: 0, 0
   index: -1
 ef3
   rotate: false
-  xy: 776, 800
+  xy: 406, 350
   size: 54, 54
   orig: 54, 54
   offset: 0, 0
   index: -1
 ef4
   rotate: false
-  xy: 906, 930
+  xy: 906, 887
   size: 54, 54
   orig: 54, 54
   offset: 0, 0
   index: -1
 ef5
   rotate: false
-  xy: 68, 12
+  xy: 633, 484
   size: 54, 54
   orig: 54, 54
+  offset: 0, 0
+  index: -1
+liuxing6
+  rotate: false
+  xy: 906, 943
+  size: 86, 41
+  orig: 86, 41
+  offset: 0, 0
+  index: -1
+spark-alt2
+  rotate: false
+  xy: 276, 342
+  size: 128, 128
+  orig: 128, 128
   offset: 0, 0
   index: -1
 star
@@ -135,5 +170,19 @@ star
   xy: 516, 475
   size: 115, 119
   orig: 115, 119
+  offset: 0, 0
+  index: -1
+wujiaoxing
+  rotate: false
+  xy: 906, 841
+  size: 45, 44
+  orig: 45, 44
+  offset: 0, 0
+  index: -1
+wujiaoxing0
+  rotate: false
+  xy: 689, 550
+  size: 45, 44
+  orig: 45, 44
   offset: 0, 0
   index: -1
